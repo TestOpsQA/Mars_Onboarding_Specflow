@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestReports>
+  <Test>
+    <TestName>Add a Language with an existing language name in the language list</TestName>
+    <Status>Passed</Status>
+    <StartTime>2025-02-03_04-35-03</StartTime>
+    <EndTime>2025-02-03_04-40-03</EndTime>
+  </Test>
+</TestReports>
