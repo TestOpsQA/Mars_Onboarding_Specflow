@@ -3,7 +3,6 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using static Mars_Onboarding_Specflow.SpecFlowPages.Helpers.ExcelLibraryHelper;
 using static Mars_Onboarding_Specflow.SpecFlowPages.Helpers.CommonDriver;
-using static Mars_Onboarding_Specflow.SpecFlowPages.Helpers.CommonMethods; 
 using AventStack.ExtentReports;
 using Mars_Onboarding_Specflow.SpecFlowPages.Helpers;
 
