@@ -9,11 +9,11 @@ namespace Mars_Onboarding_Specflow.StepDefinitions
     {
 
         private readonly ScenarioContext _scenarioContext;
-        //public Languages languagesObject;
+        public Languages languagesObject;
 
         public LoginStepDefinitions(ScenarioContext scenarioContext)
         {
-           // languagesObject = new Languages();
+            languagesObject = new Languages();
             _scenarioContext = scenarioContext;
         }
         [Given(@"I login to the website")]
@@ -25,7 +25,7 @@ namespace Mars_Onboarding_Specflow.StepDefinitions
         [Given(@"I am on Profile page")]
         public void GivenIAmOnProfilePage()
         {
-           // languagesObject.GoToProfile();
+           languagesObject.GoToProfile();
         }
 
     }

@@ -132,7 +132,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Helpers
                 }
             }
 
-            // New method: GetRowCount (added from second Excel class)
+            // New method: GetRowCount 
             public static int GetRowCount(string fileName, string sheetName, string columnName)
             {
                 int rowCount = 0;
@@ -152,7 +152,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Helpers
                 return rowCount;
             }
 
-            // New method: GetScreenshot (added from second Excel class)
+            // New method: GetScreenshot 
             public static string GetScreenshot()
             {
                 try

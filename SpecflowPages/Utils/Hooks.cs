@@ -16,7 +16,8 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Utils
     public class Hooks
     {
         private readonly ScenarioContext scenarioContext;
-
+        
+        // Constructor to initialize ScenarioContext
         public Hooks(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
@@ -53,6 +54,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Utils
         {
             try
             {
+                // Log the scenario execution status (Pass or Fail)
                 TestContext.WriteLine(scenarioContext.ScenarioExecutionStatus);
                 if (driver == null) return;
 
@@ -63,6 +65,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Utils
 
                 screenshotName = SanitizeFileName(screenshotName);
 
+                // Save the screenshot and attach it to the Extent report
                 string imgPath = SaveScreenshot(driver, screenshotName);
                 Test?.Log(Status.Info, "Snapshot: ").AddScreenCaptureFromPath(imgPath);
                 if (scenarioContext.ScenarioExecutionStatus == ScenarioExecutionStatus.TestError)
@@ -80,6 +83,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Utils
             }
             catch (Exception ex)
             {
+                // Log any exceptions
                 Test?.Log(Status.Warning, $"Error capturing screenshot: {ex.Message}");
             }
             finally
@@ -110,6 +114,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Utils
             }
         }
 
+        // Helper method to sanitize file names by replacing invalid characters
         private static string SanitizeFileName(string name)
         {
             foreach (var invalidChar in Path.GetInvalidFileNameChars())

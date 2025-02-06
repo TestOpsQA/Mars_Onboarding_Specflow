@@ -50,7 +50,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Helpers
             TurnOnWait();
 
             //Maximise the window
-            driver.Manage().Window.Maximize();
+            driver?.Manage().Window.Maximize();
         }
         public static string BaseUrl
         {

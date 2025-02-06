@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Mars_Onboarding_Specflow")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4657916a454df682da1a2e445c7184e3aa68136e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Mars_Onboarding_Specflow")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Mars_Onboarding_Specflow")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
