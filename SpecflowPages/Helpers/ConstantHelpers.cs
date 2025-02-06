@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenQA.Selenium.DevTools.V130.HeapProfiler;
 
 
 namespace Mars_Onboarding_Specflow.SpecFlowPages.Helpers
@@ -20,8 +21,9 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Helpers
         // Helper method to resolve paths dynamically
         private static string GetPath(string folderName)
         {
-            string currentDir = Directory.GetCurrentDirectory();
-            DirectoryInfo? parent1 = Directory.GetParent(currentDir);
+            //Gets current directory
+            string currentDirectory = Directory.GetCurrentDirectory();
+            DirectoryInfo? parent1 = Directory.GetParent(currentDirectory);
             DirectoryInfo? parent2 = parent1?.Parent;
             DirectoryInfo? parent3 = parent2?.Parent;
 

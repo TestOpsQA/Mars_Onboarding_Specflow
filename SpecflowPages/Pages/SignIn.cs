@@ -53,6 +53,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             }
             catch (Exception ex)
             {
+                //Log Failure
                 CommonMethods.LogTestStep($"Sign-in failed: {ex.Message}", Status.Fail);
                 throw;
             }

@@ -54,7 +54,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Helpers
             Extent = new ExtentReports();
             Extent.AttachReporter(sparkReporter);
         }
-
+        
         public static void FinalizeExtentReports()
         {
             Extent?.Flush();
@@ -89,7 +89,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Helpers
                 writer.WriteEndDocument();
             }
         }
-
+        //Logging execution steps
         public static void LogTestStep(string stepName, Status status)
         {
             Test?.Log(status, stepName);
