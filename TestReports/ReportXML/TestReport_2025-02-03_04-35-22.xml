@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TestReports>
-  <Test>
-    <TestName>Add a Language with long text as the language name</TestName>
-    <Status>Passed</Status>
-    <StartTime>2025-02-03_04-35-22</StartTime>
-    <EndTime>2025-02-03_04-40-22</EndTime>
-  </Test>
-</TestReports>

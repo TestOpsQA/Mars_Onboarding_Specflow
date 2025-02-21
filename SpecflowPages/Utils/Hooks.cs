@@ -5,35 +5,32 @@ using Mars_Onboarding_Specflow.SpecFlowPages.Helpers;
 using TechTalk.SpecFlow;
 using static Mars_Onboarding_Specflow.SpecFlowPages.Helpers.CommonDriver;
 using NUnit.Framework;
-using static Mars_Onboarding_Specflow.SpecFlowPages.Helpers.ExcelLibraryHelper;
-
-
 
 
 namespace Mars_Onboarding_Specflow.SpecFlowPages.Utils
 {
+
     [Binding]
+    
     public class Hooks
     {
         private readonly ScenarioContext scenarioContext;
-        
-        // Constructor to initialize ScenarioContext
+        private readonly Languages? languagesObj;
+        private readonly Skills? skillsObj;
         public Hooks(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
+            languagesObj = new Languages();
+            skillsObj = new Skills(new Languages());
         }
         [BeforeFeature]
         public static void StartFeature()
         {
-            // Initialize Excel data (only once for the feature)
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\SpecflowTests\Data\Mars.xlsx");
-            ExcelLib.PopulateInCollection(path, "Credentials");
+           // Initialize reports
 
-            // Launch the browser and perform one-time sign-in
-            Initialize(); // Launch browser
-            InitializeExtentReports();
-            SignIn.SigninStep(); // Sign in once per feature
+           InitializeExtentReports();
         }
+
 
         [BeforeScenario]
         public void Setup()
@@ -45,8 +42,11 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Utils
             // Reuse the browser session (already initialized in BeforeFeature)
             if (driver == null)
             {
-                Initialize(); // Ensure browser is initialized if null
+                Initialize(); // Ensure browser is initialized if null   
+
             }
+            SignIn.SigninStep();
+
         }
 
         [AfterScenario]
@@ -54,67 +54,69 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Utils
         {
             try
             {
-                // Log the scenario execution status (Pass or Fail)
                 TestContext.WriteLine(scenarioContext.ScenarioExecutionStatus);
                 if (driver == null) return;
 
-                // Capture a screenshot for the scenario
-                string screenshotName = scenarioContext.TestError != null
-                    ? $"FailedScenario_{scenarioContext.ScenarioInfo.Title}"
-                    : $"Screenshot_{scenarioContext.ScenarioInfo.Title}";
+                // Capture screenshot if test failed
+                string screenshotName = SanitizeFileName(
+                    scenarioContext.TestError != null ? $"FailedScenario_{scenarioContext.ScenarioInfo.Title}"
+                                                      : $"Screenshot_{scenarioContext.ScenarioInfo.Title}");
 
-                screenshotName = SanitizeFileName(screenshotName);
-
-                // Save the screenshot and attach it to the Extent report
                 string imgPath = SaveScreenshot(driver, screenshotName);
                 Test?.Log(Status.Info, "Snapshot: ").AddScreenCaptureFromPath(imgPath);
-                if (scenarioContext.ScenarioExecutionStatus == ScenarioExecutionStatus.TestError)
 
-                    Test?.Fail($"Scenario failed: {scenarioContext?.TestError?.Message}");
-                if (scenarioContext?.TestError != null)
-                {
-
+                // Log test result
+                if (scenarioContext.TestError != null)
                     Test?.Fail($"Scenario failed: {scenarioContext.TestError.Message}");
-                }
                 else
-                {
                     Test?.Pass("Scenario executed successfully.");
-                }
             }
             catch (Exception ex)
             {
-                // Log any exceptions
                 Test?.Log(Status.Warning, $"Error capturing screenshot: {ex.Message}");
+            }
+
+            try
+            {
+                // Delete stored languages and skills if they exist
+                if (languagesObj != null) DeleteStoredData("Languages", languagesObj.DeleteLanguage);
+                if (skillsObj != null) DeleteStoredData("Skills", skillsObj.DeleteSkill);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error during AfterScenario: " + ex.Message);
             }
             finally
             {
-
-                string xmlReportFilePath = Path.Combine(ConstantHelpers.ReportXMLPath, $"TestReport_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.xml");
-                CreateXmlReport(xmlReportFilePath, scenarioContext);
+                // Generate report and cleanup
+                if (scenarioContext != null)
+                    CreateXmlReport(Path.Combine(ConstantHelpers.ReportXMLPath, $"TestReport_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.xml"), scenarioContext);
 
                 Extent?.Flush();
+                driver?.Quit();
+                driver = null;
             }
         }
 
-        [AfterFeature]
-        public static void AfterFeature()
+        // Helper method to delete stored scenario data
+        private void DeleteStoredData(string key, Action<string> deleteAction)
         {
-            try
+            if (scenarioContext?.ContainsKey(key) == true)
             {
-                // Quit the browser after the entire feature
-                if (driver != null)
+                var list = scenarioContext[key] as List<string>;
+                if (list?.Any() == true)
                 {
-                    driver.Quit();
-                    driver = null; // Clean up the reference
+                    TestContext.WriteLine($"{key} to delete: " + string.Join(", ", list));
+                    list.ForEach(deleteAction);
+                }
+                else
+                {
+                    TestContext.WriteLine($"No {key.ToLower()} to delete.");
                 }
             }
-            catch (Exception ex)
-            {
-                TestContext.WriteLine($"Failed during feature-level cleanup: {ex.Message}");
-            }
         }
 
-        // Helper method to sanitize file names by replacing invalid characters
+
         private static string SanitizeFileName(string name)
         {
             foreach (var invalidChar in Path.GetInvalidFileNameChars())

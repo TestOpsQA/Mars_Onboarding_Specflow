@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace On_Spec_New.Features
+namespace Mars_Onboarding_Specflow.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -26,7 +26,7 @@ namespace On_Spec_New.Features
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private string[] _featureTags = ((string[])(null));
         
 #line 1 "Skills.feature"
 #line hidden
@@ -36,7 +36,7 @@ namespace On_Spec_New.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Skills Feature in the Profile Module", "As a signed-in user of the Mars website,\r\nI am able to add, update and delete the" +
-                    " skills \r\nin the skills feature of Profile module", ProgrammingLanguage.CSharp, featureTags);
+                    " skills \r\nin the skills feature of Profile module", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -48,28 +48,28 @@ namespace On_Spec_New.Features
         }
         
         [NUnit.Framework.SetUpAttribute()]
-        public void TestInitialize()
+        public virtual void TestInitialize()
         {
         }
         
         [NUnit.Framework.TearDownAttribute()]
-        public void TestTearDown()
+        public virtual void TestTearDown()
         {
             testRunner.OnScenarioEnd();
         }
         
-        public void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+        public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
             testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<NUnit.Framework.TestContext>(NUnit.Framework.TestContext.CurrentContext);
         }
         
-        public void ScenarioStart()
+        public virtual void ScenarioStart()
         {
             testRunner.OnScenarioStart();
         }
         
-        public void ScenarioCleanup()
+        public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
@@ -78,27 +78,55 @@ namespace On_Spec_New.Features
         {
 #line 7
 #line hidden
-#line 8
-testRunner.Given("I am on Profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 9
-testRunner.And("I navigate to Skills section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I login to the website with valid email \'<email>\' and password \'<password>\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 10
+ testRunner.When("I am on Profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 11
+ testRunner.And("I navigate to Skills section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 12
+ testRunner.And("I clear skills data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 13
+ testRunner.Then("skills data is cleared", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a skill with a valid skill name and valid skill level")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        public void AddASkillWithAValidSkillNameAndValidSkillLevel()
+        [NUnit.Framework.TestCaseAttribute("Software Testing", "Intermediate", "has been added to your skills", null)]
+        public virtual void AddASkillWithAValidSkillNameAndValidSkillLevel(string skill, string skillLevel, string successMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with a valid skill name and valid skill level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 12
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("successMessage", successMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with a valid skill name and valid skill level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 16
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -108,30 +136,50 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 14
-testRunner.When("I add a skill in the skills feature with a valid skill name and valid skill level" +
-                        ",", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 18
+ testRunner.When(string.Format("I add a skill in the skills feature with a valid \'{0}\' name and valid level \'{1}\'" +
+                            "", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 15
-testRunner.Then("the skill is added successfully with the valid skill name and skill level.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 19
+ testRunner.Then(string.Format("the skill is added successfully with the valid skill \'{0}\' name and level and suc" +
+                            "cess message \'{1}\' is displayed.", skill, successMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a skill with a combination of special characters and alphabetic text inputs")]
+        [NUnit.Framework.DescriptionAttribute("Add a skill with a combination of special characters inputs")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        public void AddASkillWithACombinationOfSpecialCharactersAndAlphabeticTextInputs()
+        [NUnit.Framework.TestCaseAttribute("C++", "Beginner", "has been added to your skills", null)]
+        public virtual void AddASkillWithACombinationOfSpecialCharactersInputs(string skill, string skillLevel, string successMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with a combination of special characters and alphabetic text inputs", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 18
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("successMessage", successMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with a combination of special characters inputs", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 25
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -141,13 +189,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 20
-testRunner.When("I try to add a skill with a combination of special characters and alphabetic text" +
-                        " as the skill name,", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 27
+ testRunner.When(string.Format("I try to add a skill with special characters as the \'{0}\' name and with a valid l" +
+                            "evel \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 21
-testRunner.Then("the skill cannot be added with special characters and alphabetic text, and an err" +
-                        "or message is displayed.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 28
+ testRunner.Then(string.Format("the skill cann be added with special characters \'{0}\', and a success message \'{1}" +
+                            "\' is displayed.", skill, successMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -156,16 +204,35 @@ testRunner.Then("the skill cannot be added with special characters and alphabeti
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a skill with long text as the skill name")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        public void AddASkillWithLongTextAsTheSkillName()
+        [NUnit.Framework.TestCaseAttribute(@"In a world where technology evolves at an unprecedented pace, the ability to adapt and innovate has become more critical than ever. Every individual and organization must embrace a mindset of continuous learning and improvement to thrive in such an environment. Challenges will arise, but they present opportunities to grow stronger, wiser, and more resilient. Collaboration, creativity, and perseverance are the pillars of success, enabling us to overcome obstacles and build a brighter future together. Growth starts with action!", "Expert", "Please enter skill and experience level", null)]
+        public virtual void AddASkillWithLongTextAsTheSkillName(string skill, string skillLevel, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with long text as the skill name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 25
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with long text as the skill name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 34
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -175,11 +242,12 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 26
-testRunner.When("I try to add a skill with very long text as the skill name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 35
+ testRunner.When(string.Format("I try to add a skill with very long text as the \'{0}\' name and with a valid level" +
+                            " \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 27
-testRunner.Then("the skill with long text cannot be added and an error message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 36
+ testRunner.Then(string.Format("the skill \'{0}\' with long text cannot be added and an error \'{1}\' is displayed", skill, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -188,16 +256,34 @@ testRunner.Then("the skill with long text cannot be added and an error message i
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a skill with spaces as the skill name")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        public void AddASkillWithSpacesAsTheSkillName()
+        [NUnit.Framework.TestCaseAttribute("Expert", "Please enter skill and experience level", null)]
+        public virtual void AddASkillWithSpacesAsTheSkillName(string skillLevel, string successMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with spaces as the skill name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 30
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("SuccessMessage", successMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with spaces as the skill name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 42
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -207,12 +293,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 31
-testRunner.When("I add a skill with only spaces as the skill name in the skill textbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 43
+ testRunner.When(string.Format("I add a skill with only spaces \"   \" as the name in the skill textbox and with va" +
+                            "lid level \'{0}\'", skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 32
-testRunner.Then("the skill is not added with spaces as the skill name and an error message is disp" +
-                        "layed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 44
+ testRunner.Then(string.Format("the skill \'<skill>\' is not added with spaces as the skill name and an error \'{0}\'" +
+                            " is displayed", successMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -221,115 +308,35 @@ testRunner.Then("the skill is not added with spaces as the skill name and an err
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a skill with malicious text as the skill name")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        public void AddASkillWithMaliciousTextAsTheSkillName()
+        [NUnit.Framework.TestCaseAttribute("<img src=x onerror=alert(1)>", "Intermediate", "Please enter skill and experience level", null)]
+        public virtual void AddASkillWithMaliciousTextAsTheSkillName(string skill, string skillLevel, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with malicious text as the skill name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 35
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 36
-testRunner.When("I add a skill with malicious text as the skill name in the skill textbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 37
-testRunner.Then("the skill is not added with the malicious text and an error message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a skill without entering a skill name and without selecting a skill level")]
-        [NUnit.Framework.CategoryAttribute("skill")]
-        public void AddASkillWithoutEnteringASkillNameAndWithoutSelectingASkillLevel()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "skill"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill without entering a skill name and without selecting a skill level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 40
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 41
-testRunner.When("I add a skill without entering a skill name in the skill textbox and without sele" +
-                        "cting a skill level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 42
-testRunner.Then("the skill is not added with empty skill textbox and skill level fields and an err" +
-                        "or message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a skill with a valid skill name and without selecting a level")]
-        [NUnit.Framework.CategoryAttribute("skill")]
-        public void AddASkillWithAValidSkillNameAndWithoutSelectingALevel()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "skill"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with a valid skill name and without selecting a level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 45
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 46
-testRunner.When("I try to add a skill with a valid skill name but without selecting a skill level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 47
-testRunner.Then("the skill is not added without selecting the skill level and an error is displaye" +
-                        "d", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a skill without entering a skill name but with a valid skill level")]
-        [NUnit.Framework.CategoryAttribute("skill")]
-        public void AddASkillWithoutEnteringASkillNameButWithAValidSkillLevel()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "skill"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill without entering a skill name but with a valid skill level", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with malicious text as the skill name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 50
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -340,29 +347,46 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 51
-testRunner.When("I try to add a skill with an empty skill textbox but with a valid skill level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I add a skill with malicious text \'{0}\' and valid level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 52
-testRunner.Then("the skill is not added with an empty skill textbox and an error message is displa" +
-                        "yed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the skill \'{0}\' is not added with the malicious text and an error message \'{1}\' i" +
+                            "s displayed", skill, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a skill with an existing skill name in the skill list")]
+        [NUnit.Framework.DescriptionAttribute("Add a skill without entering a skill name and without selecting a skill level")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        public void AddASkillWithAnExistingSkillNameInTheSkillList()
+        [NUnit.Framework.TestCaseAttribute("Please enter skill and experience level", null)]
+        public virtual void AddASkillWithoutEnteringASkillNameAndWithoutSelectingASkillLevel(string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with an existing skill name in the skill list", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 55
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill without entering a skill name and without selecting a skill level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 58
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -372,72 +396,49 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 56
-testRunner.When("I try to add a skill with an existing skill name in the skill list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 59
+ testRunner.When("I add a skill without entering a skill name \'<skill>\' in the skill textbox and wi" +
+                        "thout selecting a skill level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 57
-testRunner.Then("the duplicate skill cannot be added and an error is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a skill with a valid skill name and valid skill level")]
-        [NUnit.Framework.CategoryAttribute("skill")]
-        [NUnit.Framework.CategoryAttribute("skillRequired")]
-        public void UpdateASkillWithAValidSkillNameAndValidSkillLevel()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "skill",
-                    "skillRequired"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with a valid skill name and valid skill level", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 60
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 61
-testRunner.Given("that skills exist under the skills feature", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 62
-testRunner.When("I try to update any skill in the skill list with a valid skill name and valid ski" +
-                        "ll level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 63
-testRunner.Then("the skill can be edited successfully with the valid skill name and valid skill le" +
-                        "vel", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the skill is not added with an empty skill textbox and skill level fields and an " +
+                            "error message \'{0}\' is displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a skill with a combination of special characters and alphabetic text input" +
-            "s")]
+        [NUnit.Framework.DescriptionAttribute("Add a skill with a valid skill name and without selecting a level")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        [NUnit.Framework.CategoryAttribute("skillRequired")]
-        public void UpdateASkillWithACombinationOfSpecialCharactersAndAlphabeticTextInputs()
+        [NUnit.Framework.TestCaseAttribute("Java", "Please enter skill and experience level", null)]
+        public virtual void AddASkillWithAValidSkillNameAndWithoutSelectingALevel(string skill, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "skill",
-                    "skillRequired"};
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with a combination of special characters and alphabetic text input" +
-                    "s", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with a valid skill name and without selecting a level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 66
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -448,12 +449,237 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 67
-testRunner.When("I try to update a skill with a combination of special characters and alphabetic t" +
-                        "ext inputs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I try to add a skill with a valid skill name \'{0}\' but without selecting a skill " +
+                            "level \'<skillLevel>\'", skill), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 68
-testRunner.Then("the skill cannot be updated with special characters and an error message is displ" +
-                        "ayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the skill is not added without selecting the skill level and an error message \'{0" +
+                            "}\'is displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Add a skill without entering a skill name but with a valid skill level")]
+        [NUnit.Framework.CategoryAttribute("skill")]
+        [NUnit.Framework.TestCaseAttribute("Expert", "Please enter skill and experience level", null)]
+        public virtual void AddASkillWithoutEnteringASkillNameButWithAValidSkillLevel(string skillLevel, string errorMessage, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill without entering a skill name but with a valid skill level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 74
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 75
+ testRunner.When(string.Format("I try to add a skill with an empty skill \'<skill>\' textbox but with a valid skill" +
+                            " level \'{0}\'", skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 76
+ testRunner.Then(string.Format("the skill is not added with an empty skill textbox and an error message \'{0}\' is " +
+                            "displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Add a skill with an existing skill name in the skill list")]
+        [NUnit.Framework.CategoryAttribute("skill")]
+        [NUnit.Framework.TestCaseAttribute("Automation Testing", "Intermediate", "Duplicated data", "This skill is already exist in your skill list.", null)]
+        public virtual void AddASkillWithAnExistingSkillNameInTheSkillList(string skill, string skillLevel, string errorMessageOne, string errorMessageTwo, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("errorMessageOne", errorMessageOne);
+            argumentsOfScenario.Add("errorMessageTwo", errorMessageTwo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a skill with an existing skill name in the skill list", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 82
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 83
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 84
+ testRunner.And(string.Format("I try to add a skill with a duplicate skill name \'{0}\' and level \'{1}\' in the ski" +
+                            "ll list", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 85
+ testRunner.Then(string.Format("the duplicate skill cannot be added and an error message \'{0}\' or \'{1}\' is displa" +
+                            "yed", errorMessageOne, errorMessageTwo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a skill with a valid skill name and valid skill level")]
+        [NUnit.Framework.CategoryAttribute("skill")]
+        [NUnit.Framework.TestCaseAttribute("Agile Testing", "Expert", "Java", "Beginner", "has been updated to your skills", null)]
+        public virtual void UpdateASkillWithAValidSkillNameAndValidSkillLevel(string skill, string skillLevel, string skillUpdate, string skillLevelUpdate, string successMessage, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("skillUpdate", skillUpdate);
+            argumentsOfScenario.Add("skillLevelUpdate", skillLevelUpdate);
+            argumentsOfScenario.Add("successMessage", successMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with a valid skill name and valid skill level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 92
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 93
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 94
+ testRunner.And(string.Format("I try to update any skill in the skill list with a valid skill name \'{0}\' and val" +
+                            "id skill level \'{1}\'", skillUpdate, skillLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 95
+ testRunner.Then(string.Format("the skill can be updated successfully with the valid skill name \'{0}\' and valid s" +
+                            "kill level and success message \'{1}\' is displayed", skillUpdate, successMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a skill with special characters inputs")]
+        [NUnit.Framework.CategoryAttribute("skill")]
+        [NUnit.Framework.TestCaseAttribute("API Testing", "Expert", "C#", "Beginner", "has been updated to your skills", null)]
+        public virtual void UpdateASkillWithSpecialCharactersInputs(string skill, string skillLevel, string skillUpdate, string skillLevelUpdate, string successMessage, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("skillUpdate", skillUpdate);
+            argumentsOfScenario.Add("skillLevelUpdate", skillLevelUpdate);
+            argumentsOfScenario.Add("successMessage", successMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with special characters inputs", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 103
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 104
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 105
+ testRunner.When(string.Format("I try to update a skill with special characters inputs \'{0}\' and with valid level" +
+                            " \'{1}\'", skillUpdate, skillLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 106
+ testRunner.Then(string.Format("the skill cannot be updated with special characters \'{0}\' and an error message \'{" +
+                            "1}\' is displayed", skillUpdate, successMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -462,16 +688,37 @@ testRunner.Then("the skill cannot be updated with special characters and an erro
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update a skill with long text as the skill name")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        public void UpdateASkillWithLongTextAsTheSkillName()
+        [NUnit.Framework.TestCaseAttribute("SQL", "Intermediate", @"The golden sun dipped below the horizon, painting the sky with hues of amber and violet as a gentle breeze rustled through the towering trees. The distant waves crashed rhythmically against the shore, their soothing melody blending with the whispers of the wind, creating a serene harmony.", "Intermediate", "Please enter skill and experience level", null)]
+        public virtual void UpdateASkillWithLongTextAsTheSkillName(string skill, string skillLevel, string skillUpdate, string updateSkillLevel, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with long text as the skill name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 71
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("skillUpdate", skillUpdate);
+            argumentsOfScenario.Add("updateSkillLevel", updateSkillLevel);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with long text as the skill name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 114
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -481,12 +728,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 72
-testRunner.When("I try to update an existing skill with very long text as the skill name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 115
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 73
-testRunner.Then("the skill cannot be updated with a long text input and an error message is displa" +
-                        "yed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 116
+ testRunner.When(string.Format("I try to update an existing skill with very long text \'{0}\' as the skill name and" +
+                            " with level \'{1}\'", skillUpdate, updateSkillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 117
+ testRunner.Then(string.Format("the skill cannot be updated with a long text input \'{0}\' and an error message \'{1" +
+                            "}\' is displayed", skillUpdate, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -494,19 +745,38 @@ testRunner.Then("the skill cannot be updated with a long text input and an error
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update a skill with spaces as the skill name")]
-        [NUnit.Framework.CategoryAttribute("skillRequired")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        public void UpdateASkillWithSpacesAsTheSkillName()
+        [NUnit.Framework.TestCaseAttribute("FrontEnd Development", "Expert", "", "Beginner", "Please enter skill and experience level", null)]
+        public virtual void UpdateASkillWithSpacesAsTheSkillName(string skill, string skillLevel, string skillUpdate, string skillLevelUpdate, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "skillRequired",
+            string[] @__tags = new string[] {
                     "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with spaces as the skill name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 76
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("skillUpdate", skillUpdate);
+            argumentsOfScenario.Add("skillLevelUpdate", skillLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with spaces as the skill name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 123
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -516,11 +786,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 77
-testRunner.When("I try to update a skill and leave only spaces in the skill textbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 125
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 78
-testRunner.Then("the skill is not updated with spaces and an error message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 126
+ testRunner.When(string.Format("I try to update a skill with only spaces \'{0}\' in the skill textbox and with \'{1}" +
+                            "\' skill level", skillUpdate, skillLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 127
+ testRunner.Then(string.Format("the skill is not updated with spaces \'{0}\' and an error message \'{1}\' is displaye" +
+                            "d", skillUpdate, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -528,19 +803,38 @@ testRunner.Then("the skill is not updated with spaces and an error message is di
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update a skill with malicious text as the skill name")]
-        [NUnit.Framework.CategoryAttribute("skillRequired")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        public void UpdateASkillWithMaliciousTextAsTheSkillName()
+        [NUnit.Framework.TestCaseAttribute("Python", "Beginner", "background: url(https://evil.com/steal.png);", "Intermediate", "Please enter skill and experience level", null)]
+        public virtual void UpdateASkillWithMaliciousTextAsTheSkillName(string skill, string skillLevel, string skillUpdate, string skillLevelUpdate, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "skillRequired",
+            string[] @__tags = new string[] {
                     "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with malicious text as the skill name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 81
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("skillUpdate", skillUpdate);
+            argumentsOfScenario.Add("skillLevelUpdate", skillLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with malicious text as the skill name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 134
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -550,11 +844,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 82
-testRunner.When("I try to update a skill and enter malicious text in the skill textbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 135
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 83
-testRunner.Then("the skill is not updated with malicious data and an error message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 136
+ testRunner.When(string.Format("I try to update a skill and enter malicious text \'{0}\' in the skill textbox and w" +
+                            "ith skill level \'{1}\'", skillUpdate, skillLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 137
+ testRunner.Then(string.Format("the skill is not updated with malicious data \'{0}\' and an error message \'{1}\' is " +
+                            "displayed", skillUpdate, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -563,18 +862,37 @@ testRunner.Then("the skill is not updated with malicious data and an error messa
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update a skill without entering a skill name and without selecting skill level")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        [NUnit.Framework.CategoryAttribute("skillRequired")]
-        public void UpdateASkillWithoutEnteringASkillNameAndWithoutSelectingSkillLevel()
+        [NUnit.Framework.TestCaseAttribute("Ruby", "Expert", "", "", "Please enter skill and experience level", null)]
+        public virtual void UpdateASkillWithoutEnteringASkillNameAndWithoutSelectingSkillLevel(string skill, string skillLevel, string skillUpdate, string skillLevelUpdate, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "skill",
-                    "skillRequired"};
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill without entering a skill name and without selecting skill level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 86
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("skillUpdate", skillUpdate);
+            argumentsOfScenario.Add("skillLevelUpdate", skillLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill without entering a skill name and without selecting skill level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 143
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -584,13 +902,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 87
-testRunner.When("I try to update a skill without entering a skill name and without selecting skill" +
-                        " level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 144
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 88
-testRunner.Then("the skill is not updated without entering a skill name and without selecting skil" +
-                        "l level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 145
+ testRunner.When(string.Format("I try to update a skill without entering a skill name \'{0}\' and without selecting" +
+                            " skill level", skill), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 146
+ testRunner.Then(string.Format("the skill is not updated without entering a skill name and without selecting skil" +
+                            "l level and an error message \'{0}\' is displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -599,18 +920,37 @@ testRunner.Then("the skill is not updated without entering a skill name and with
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update a skill with valid skill name and without selecting skill level")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        [NUnit.Framework.CategoryAttribute("skillRequired")]
-        public void UpdateASkillWithValidSkillNameAndWithoutSelectingSkillLevel()
+        [NUnit.Framework.TestCaseAttribute("DBMS", "Beginner", "MySQL", "", "Please enter skill and experience level", null)]
+        public virtual void UpdateASkillWithValidSkillNameAndWithoutSelectingSkillLevel(string skill, string skillLevel, string skillUpdate, string skillLevelUpdate, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "skill",
-                    "skillRequired"};
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with valid skill name and without selecting skill level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 91
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("skillUpdate", skillUpdate);
+            argumentsOfScenario.Add("skillLevelUpdate", skillLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with valid skill name and without selecting skill level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 152
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -620,11 +960,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 92
-testRunner.When("I try to update a skill with valid skill name and without selecting skill level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 153
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 93
-testRunner.Then("the skill is not updated without selecting skill level and an error is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 154
+ testRunner.When(string.Format("I try to update a skill with valid skill name \'{0}\' and without selecting skill l" +
+                            "evel \'{1}\'", skillUpdate, skillLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 155
+ testRunner.Then(string.Format("the skill \'{0}\' is not updated without selecting skill level and an error \'{1}\' i" +
+                            "s displayed", skillUpdate, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -633,18 +978,37 @@ testRunner.Then("the skill is not updated without selecting skill level and an e
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update a skill without entering a skill name but selecting a skill level")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        [NUnit.Framework.CategoryAttribute("skillRequired")]
-        public void UpdateASkillWithoutEnteringASkillNameButSelectingASkillLevel()
+        [NUnit.Framework.TestCaseAttribute("Java", "Intermediate", "", "Expert", "Please enter skill and experience level", null)]
+        public virtual void UpdateASkillWithoutEnteringASkillNameButSelectingASkillLevel(string skill, string skillLevel, string skillUpdate, string skillLevelUpdate, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "skill",
-                    "skillRequired"};
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill without entering a skill name but selecting a skill level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 96
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("skillUpdate", skillUpdate);
+            argumentsOfScenario.Add("skillLevelUpdate", skillLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill without entering a skill name but selecting a skill level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 161
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -654,13 +1018,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 97
-testRunner.When("I try to update a skill without entering a skill name but selecting a skill level" +
-                        "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 162
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 98
-testRunner.Then("the skill is not updated with an empty skill textbox and an error message is disp" +
-                        "layed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 163
+ testRunner.And(string.Format("I try to update a skill without entering a skill name \'{0}\' but selecting a skill" +
+                            " level \'{1}\'", skillUpdate, skillLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 164
+ testRunner.Then(string.Format("the skill is not updated with an empty skill textbox and an error message \'{0}\' i" +
+                            "s displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -669,18 +1036,36 @@ testRunner.Then("the skill is not updated with an empty skill textbox and an err
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update a skill with an existing skill name in the skill list")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        [NUnit.Framework.CategoryAttribute("skillRequired")]
-        public void UpdateASkillWithAnExistingSkillNameInTheSkillList()
+        [NUnit.Framework.TestCaseAttribute("Python", "Expert", "Duplicated data", "This skill is already added to your skill list.", null)]
+        public virtual void UpdateASkillWithAnExistingSkillNameInTheSkillList(string skill, string skillLevel, string errorMessageOne, string errorMessageTwo, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "skill",
-                    "skillRequired"};
+            string[] @__tags = new string[] {
+                    "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with an existing skill name in the skill list", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 101
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("errorMessageOne", errorMessageOne);
+            argumentsOfScenario.Add("errorMessageTwo", errorMessageTwo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a skill with an existing skill name in the skill list", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 170
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -690,11 +1075,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 102
-testRunner.When("I try to update a skill with an existing skill name in the skill list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 171
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 103
-testRunner.Then("the duplicate skill cannot be updated and an error is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 172
+ testRunner.And(string.Format("I try to update a skill with a duplicate skill name \'{0}\' and level \'{1}\' in the " +
+                            "skill list", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 173
+ testRunner.Then(string.Format("the duplicate skill cannot be updated and an error message \'{0}\' or \'{1}\' is disp" +
+                            "layed", errorMessageOne, errorMessageTwo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -702,19 +1092,36 @@ testRunner.Then("the duplicate skill cannot be updated and an error is displayed
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Delete a skill from the skill list")]
-        [NUnit.Framework.CategoryAttribute("skillRequired")]
         [NUnit.Framework.CategoryAttribute("skill")]
-        public void DeleteASkillFromTheSkillList()
+        [NUnit.Framework.TestCaseAttribute("C++", "Beginner", "has been deleted", null)]
+        public virtual void DeleteASkillFromTheSkillList(string skill, string skillLevel, string successMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "skillRequired",
+            string[] @__tags = new string[] {
                     "skill"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a skill from the skill list", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 106
+            argumentsOfScenario.Add("skill", skill);
+            argumentsOfScenario.Add("skillLevel", skillLevel);
+            argumentsOfScenario.Add("SuccessMessage", successMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a skill from the skill list", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 180
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -724,11 +1131,15 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 107
-testRunner.When("I try to delete a skill from the skill list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 181
+ testRunner.When(string.Format("I add a valid skill \'{0}\' and level \'{1}\'", skill, skillLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 108
-testRunner.Then("the skill from the list is deleted successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 182
+ testRunner.And(string.Format("I try to delete a skill \'{0}\' from the skill list", skill), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 183
+ testRunner.Then(string.Format("the skill \'{0}\' from the list is deleted successfully and a successful deletion m" +
+                            "essage \'{1}\' is displayed", skill, successMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
-using static Mars_Onboarding_Specflow.SpecFlowPages.Helpers.ExcelLibraryHelper;
 using static Mars_Onboarding_Specflow.SpecFlowPages.Helpers.CommonDriver;
 using AventStack.ExtentReports;
 using Mars_Onboarding_Specflow.SpecFlowPages.Helpers;
@@ -11,16 +10,18 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
     internal class SignIn
     {
 
-        private static IWebElement? SignInBtn => driver?.FindElement(By.XPath("//A[@class='item'][text()='Sign In']"));
-        private static IWebElement? Email => driver?.FindElement(By.XPath("(//INPUT[@type='text'])[2]"));
-        private static IWebElement? Password => driver?.FindElement(By.XPath("//INPUT[@type='password']"));
-        private static IWebElement? LoginBtn => driver?.FindElement(By.XPath("//BUTTON[@class='fluid ui teal button'][text()='Login']"));
+        #region SignIn page Objects
+        private static IWebElement? SignInButton => driver?.FindElement(By.XPath("//A[@class='item'][text()='Sign In']"));
+        private static IWebElement? EmailTextbox => driver?.FindElement(By.XPath("(//INPUT[@type='text'])[2]"));
+        private static IWebElement? PasswordTextbox => driver?.FindElement(By.XPath("//INPUT[@type='password']"));
+        private static IWebElement? LoginButton => driver?.FindElement(By.XPath("//BUTTON[@class='fluid ui teal button'][text()='Login']"));
 
-        private const string ExcelSheetName = "Credentials";
-        private const string ProfileUrlFragment = "Profile";
+        private const string ProfileUrl = "http://localhost:5003/Account/Profile";
 
+        #endregion
         public static void SigninStep()
         {
+
             try
             {
                 if (driver == null)
@@ -28,32 +29,36 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
                     throw new Exception("WebDriver instance is NULL. Ensure it is initialized before calling SigninStep.");
                 }
 
+
                 // Navigate to URL
                 NavigateUrl();
 
+
                 // Click "Sign In"
-                SignInBtn?.Click();
 
-                // Fetch credentials from Excel
-                ExcelLib.PopulateInCollection(MarsExcelPath, ExcelSheetName);
-                string? username = ExcelLib.ReadData(2, "username");
-                string? password = ExcelLib.ReadData(2, "password");
+                SignInButton?.Click();
 
+                string email = "azra.tabassum02@gmail.com";
+                string password = "SP@ssword02";
+
+                if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                {
+                    throw new Exception("Email or Password is not set in Sign In.");
+                }
                 // Enter credentials
-                Email?.SendKeys(username);
-                Password?.SendKeys(password);
-                LoginBtn?.Click();
+                EmailTextbox?.SendKeys(email);
+                PasswordTextbox?.SendKeys(password);
+                LoginButton?.Click();
 
                 // Wait for the profile page to load
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(50));
-                wait.Until(d => d.Url.Contains(ProfileUrlFragment));
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                wait.Until(d => d.Url.Contains(ProfileUrl));
 
                 // Log success
                 CommonMethods.LogTestStep("Successfully signed in", Status.Pass);
             }
             catch (Exception ex)
             {
-                //Log Failure
                 CommonMethods.LogTestStep($"Sign-in failed: {ex.Message}", Status.Fail);
                 throw;
             }

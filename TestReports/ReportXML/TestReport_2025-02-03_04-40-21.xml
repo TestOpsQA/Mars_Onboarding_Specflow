@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TestReports>
-  <Test>
-    <TestName>Update a skill with a combination of special characters and alphabetic text inputs</TestName>
-    <Status>Passed</Status>
-    <StartTime>2025-02-03_04-40-21</StartTime>
-    <EndTime>2025-02-03_04-45-21</EndTime>
-  </Test>
-</TestReports>

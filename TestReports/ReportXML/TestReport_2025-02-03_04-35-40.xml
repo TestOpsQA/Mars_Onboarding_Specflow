@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TestReports>
-  <Test>
-    <TestName>Add a Language without entering a language name but with a valid language level</TestName>
-    <Status>Passed</Status>
-    <StartTime>2025-02-03_04-35-40</StartTime>
-    <EndTime>2025-02-03_04-40-40</EndTime>
-  </Test>
-</TestReports>

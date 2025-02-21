@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TestReports>
-  <Test>
-    <TestName>Update a skill without entering a skill name but selecting a skill level</TestName>
-    <Status>Passed</Status>
-    <StartTime>2025-02-03_04-41-33</StartTime>
-    <EndTime>2025-02-03_04-46-33</EndTime>
-  </Test>
-</TestReports>

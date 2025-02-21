@@ -3,6 +3,7 @@ using System.Xml;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using TechTalk.SpecFlow;
+using NUnit.Framework;
 
 namespace Mars_Onboarding_Specflow.SpecFlowPages.Helpers
 {
@@ -54,7 +55,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Helpers
             Extent = new ExtentReports();
             Extent.AttachReporter(sparkReporter);
         }
-        
+
         public static void FinalizeExtentReports()
         {
             Extent?.Flush();
@@ -95,5 +96,36 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Helpers
             Test?.Log(status, stepName);
         }
         #endregion
+
+        #region Get Screenshot method
+        public static string GetScreenshot()
+        {
+            try
+            {
+                IWebDriver driver = new OpenQA.Selenium.Chrome.ChromeDriver();
+                ITakesScreenshot? screenshotDriver = driver as ITakesScreenshot;
+                Screenshot? screenshot = screenshotDriver?.GetScreenshot();
+                string? screenshotBase64 = screenshot?.AsBase64EncodedString;
+
+                // Optionally, save the screenshot as a file if needed
+                string screenshotPath = Path.Combine(Directory.GetCurrentDirectory(), "screenshot.png");
+                screenshot?.SaveAsFile(screenshotPath);
+                if (screenshotBase64 == null)
+                {
+                    screenshotBase64 = "No screenshotBase64 found";
+                }
+
+                return screenshotBase64;
+            }
+            catch (Exception e)
+            {
+                TestContext.WriteLine("Error in GetScreenshot method: " + e.Message);
+
+                return "Error capturing screenshot";
+            }
+        }
+        #endregion
+
     }
 }
+

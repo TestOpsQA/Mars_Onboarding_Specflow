@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TestReports>
-  <Test>
-    <TestName>Delete a skill from the skill list</TestName>
-    <Status>Passed</Status>
-    <StartTime>2025-02-03_04-40-14</StartTime>
-    <EndTime>2025-02-03_04-45-14</EndTime>
-  </Test>
-</TestReports>

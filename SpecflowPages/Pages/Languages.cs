@@ -1,8 +1,5 @@
-﻿using AventStack.ExtentReports;
-using NUnit.Framework;
-using Mars_Onboarding_Specflow.SpecFlowPages.Helpers;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using static Mars_Onboarding_Specflow.SpecFlowPages.Helpers.ExcelLibraryHelper;
 using static Mars_Onboarding_Specflow.SpecFlowPages.Helpers.WaitHelpers;
 using static Mars_Onboarding_Specflow.SpecFlowPages.Helpers.CommonDriver;
 using OpenQA.Selenium.Support.UI;
@@ -12,82 +9,181 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
 {
     internal class Languages
     {
-        public LanguageObjects languageObjectsObj;
-        public SkillsObjects skillsObjectsObj;
-        public Skills skillsObject;
 
+        #region Languages page Objects
+        public IWebElement? ProfileModule => driver?.FindElement(By.LinkText("Profile"));
+
+        public IWebElement? LanguagesPage => driver?.FindElement(By.XPath("//a[contains(text(),'Languages')]"));
+
+        public IWebElement? AddNewButton => driver?.FindElement(By.XPath("//section[2]//form//table/thead/tr/th[3]/div"));
+
+
+        public IWebElement? LanguageNameTextbox => driver?.FindElement(By.XPath("//section[2]//form//div[2]//input[1]"));
+
+        public IWebElement? ChooseLanguageLevelDropdown => driver?.FindElement(By.XPath("//section[2]//form//div[2]//div[2]//select[1]\r\n"));
+
+        public IWebElement? ChooseLanguageLevelOption => driver?.FindElement(By.XPath("//option[contains(text(),'Language Level')]"));
+        public IWebElement? LanguageLevelOptionBasic => driver?.FindElement(By.XPath("//option[contains(text(),'Basic')]"));
+        public IWebElement? LanguageLevelOptionConversational => driver?.FindElement(By.XPath("//option[contains(text(),'Conversational')]"));
+        public IWebElement? LanguageLevelOptionFluent => driver?.FindElement(By.XPath("//option[contains(text(),'Fluent')]"));
+        public IWebElement? LanguageLevelOptionNative => driver?.FindElement(By.XPath("//option[contains(text(),'Native/Bilingual')]"));
+
+        public IWebElement? AddButton => driver?.FindElement(By.XPath("//section[2]//form//div[2]//div[3]/input[1]"));
+
+        public IWebElement? AddCancelButton => driver?.FindElement(By.XPath("//section[2]//form//div[2]//div[3]/input[2]"));
+
+
+        public IWebElement? UpdateLanguageIcon => driver?.FindElement(By.XPath("//tbody[1]/tr[1]/td[3]/span[1]/i[1]"));
+
+        public IWebElement? LanguagesSectionHeader => driver?.FindElement(By.XPath("//h3[contains(text(),'Languages')]"));
+
+        public IReadOnlyCollection<IWebElement>? LanguageTableRows = driver?.FindElements(By.XPath("//section[2]//form//table/tbody/tr"));
+
+        public IReadOnlyCollection<IWebElement>? deleteButtons = driver?.FindElements(By.XPath("//div[@data-tab='first']//tbody/tr/td[3]/span[2]/i"));
+
+        public IWebElement? UpdateLanguageTextbox => driver?.FindElement(By.XPath("//tbody/tr[1]/td[1]/div[1]/div[1]/input"));
+
+        public IWebElement? UpdateLevelDropdown => driver?.FindElement(By.XPath("//tbody/tr[1]/td[1]/div[1]/div[2]/select[1]"));
+        public IWebElement? UpdateButton => driver?.FindElement(By.XPath("//tbody/tr[1]/td[1]/div[1]/span[1]/input[1]"));
+        public IWebElement? UpdateCancelButton => driver?.FindElement(By.XPath("//tbody/tr[1]/td[1]/div[1]/span[1]/input[2]"));
+        public IWebElement? DeleteLanguageIcon => driver?.FindElement(By.XPath("//div[@data-tab='first']//tbody[last()]/tr/td[3]/span[2]/i"));
+
+
+        public IWebElement? PopUpBox => driver?.FindElement(By.ClassName("ns-box-inner"));
+
+        public IWebElement? PopUpCloseButton => driver?.FindElement(By.XPath("//body/div[1]/a[1]"));
+
+
+        public string? AddLanguageSuccessMessage { get; set; }
+        public string? UpdateLanguageSuccessMessage { get; set; }
+
+
+
+
+
+        public string? ValidationErrorMessage { get; set; }
+        public string? UpdateLanguageErrorMessage { get; set; }
+
+        public string? FirstColumnValue { get; set; }
+
+        public string? DeleteLanguageSuccessMessage { get; set; }
+
+
+        public Skills skillsObject;
+        #endregion
         public Languages()
         {
-            skillsObject = new Skills(this); 
-            languageObjectsObj = new LanguageObjects();
-            skillsObjectsObj = new SkillsObjects();
+            skillsObject = new Skills(this);
+
         }
 
         public void GoToProfile()
         {
-            WaitUntilElementIsPresent(languageObjectsObj.ProfileModule);
-            languageObjectsObj.ProfileModule?.Click();
+            WaitUntilElementIsClickable(ProfileModule);
+            ProfileModule?.Click();
 
         }
         public void NavigateToLanguages()
         {
-            WaitUntilElementIsPresent(languageObjectsObj.LanguagesPage);
-            languageObjectsObj?.LanguagesPage?.Click();
+            WaitUntilElementIsPresent(LanguagesPage);
+            LanguagesPage?.Click();
+        }
+        public void CleanLanguageData()
+        {
+            try
+            {
+
+                // If no delete buttons are found, exit the method gracefully
+                if (deleteButtons == null || deleteButtons.Count == 0)
+                {
+                    Console.WriteLine("No languages found. Skipping cleanup.");
+                    return;
+                }
+
+                // Loop through and delete all languages
+                while (true)
+                {
+                    try
+                    {
+                        if (deleteButtons.Count == 0)
+                        {
+                            Console.WriteLine("No more delete buttons found. Cleanup complete.");
+                            break;
+                        }
+
+                        WaitUntilElementIsInteractable(deleteButtons.Last()); // Wait until the last delete button is clickable
+                        deleteButtons.Last().Click();
+                        ClosePopUp();
+                        wait(2);
+                    }
+                    catch (StaleElementReferenceException)
+                    {
+                        Console.WriteLine("Element disappeared, retrying...");
+                        continue;
+                    }
+                    catch (WebDriverTimeoutException)
+                    {
+                        Console.WriteLine("Delete button took too long to appear. Exiting cleanup.");
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in CleanLanguageData: {ex.Message}");
+            }
         }
 
-        public void AddValidLanguage(int languageIndex)
+
+
+        public void AddValidLanguage(string language, string languageLevel)
         {
             try
             {
 
                 if (driver == null) throw new InvalidOperationException("Driver is not initialized.");
 
-                // Populate Excel data and read language
-
-                ExcelLib.PopulateInCollection(ExcelPath, "Languages");
-                string language = ExcelLib.ReadData(languageIndex + 1, "Language")
-                                   ?? throw new Exception($"No language found for index {languageIndex} in Excel.");
-
                 // Add language and select level
-                languageObjectsObj.AddNewButton?.Click();
-                WaitUntilElementIsPresent(languageObjectsObj.LanguageNameTextbox);
-                languageObjectsObj.LanguageNameTextbox?.SendKeys(language);
-                SelectLanguageLevel(languageIndex);
-                languageObjectsObj?.AddButton?.Click();
+                AddNewButton?.Click();
+                WaitUntilElementIsPresent(LanguageNameTextbox);
+                LanguageNameTextbox?.SendKeys(language);
+                
+                //Choose Lanuage Level
+                chooseLanguageLevel(languageLevel);
+                AddButton?.Click();
 
                 // Capture and log the confirmation message
-                string confirmationMessage = GetPopUpMessage();
-                languageObjectsObj?.LanguageConfirmationMessages.Add(confirmationMessage);
+                AddLanguageSuccessMessage = GetPopUpMessage();
+
                 ClosePopUp();
-                TestContext.WriteLine($"Language '{language}' added with message: {confirmationMessage}");
-                wait(5);
+                TestContext.WriteLine($"Language '{language}' added with message: {AddLanguageSuccessMessage}");
 
             }
             catch (Exception ex)
             {
                 TestContext.WriteLine($"Error adding language: {ex.Message}");
-                Assert.Fail($"Failed to add language at index {languageIndex}: {ex.Message}");
             }
 
         }
+
 
         public void SelectLanguageLevel(int languageIndex)
         {
             try
             {
-                if (driver == null || languageObjectsObj?.LanguageLevelOptionBasic == null || languageObjectsObj?.LanguageLevelOptionConversational == null ||
-                    languageObjectsObj?.LanguageLevelOptionFluent == null || languageObjectsObj?.LanguageLevelOptionNative == null)
+                if (driver == null || LanguageLevelOptionBasic == null || LanguageLevelOptionConversational == null ||
+                    LanguageLevelOptionFluent == null || LanguageLevelOptionNative == null)
                 {
                     throw new InvalidOperationException("Driver or level options are not initialized.");
                 }
 
-                // Use array for easy level selection
+                // Using array for easy level selection
                 IWebElement languageLevelOption = languageIndex switch
                 {
-                    1 => languageObjectsObj.LanguageLevelOptionBasic,
-                    2 => languageObjectsObj.LanguageLevelOptionConversational,
-                    3 => languageObjectsObj.LanguageLevelOptionFluent,
-                    4 => languageObjectsObj.LanguageLevelOptionNative,
+                    1 => LanguageLevelOptionBasic,
+                    2 => LanguageLevelOptionConversational,
+                    3 => LanguageLevelOptionFluent,
+                    4 => LanguageLevelOptionNative,
                     _ => throw new InvalidOperationException("Invalid language index.")
                 };
 
@@ -96,7 +192,7 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             catch (Exception ex)
             {
                 TestContext.WriteLine($"Unable to select level: {ex.Message}");
-               
+
             }
         }
         public void ClosePopUp()
@@ -104,10 +200,10 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             try
             {
                 // Ensure element exists before checking Displayed
-                if (skillsObjectsObj.PopUpCloseButton != null && skillsObjectsObj.PopUpCloseButton.Displayed)
+                if (PopUpCloseButton != null && PopUpCloseButton.Displayed)
                 {
-                    WaitUntilElementIsClickable(skillsObjectsObj.PopUpCloseButton);
-                    skillsObjectsObj.PopUpCloseButton.Click();
+                    WaitUntilElementIsClickable(PopUpCloseButton);
+                    PopUpCloseButton.Click();
                 }
             }
             catch (NoSuchElementException)
@@ -118,72 +214,92 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             {
                 TestContext.WriteLine($"An unexpected error occurred: {ex.Message}");
             }
-            wait(10);
-
+            wait(3);
         }
 
-        public void AddLanguageWithSpecialCharactersInput()
+        public void AddLanguageWithSpecialCharactersInput(string language, string languageLevel)
         {
 
+            WaitUntilElementIsPresent(AddNewButton);
+            AddNewButton?.Click();
+            LanguageNameTextbox?.SendKeys(language);
+            ChooseLanguageLevelDropdown?.Click();
+            if (ChooseLanguageLevelDropdown == null)
+            {
+                throw new Exception("dropdownLanguage is null. Ensure it is initialized before use.");
+            }
+            var selectLanguageLevelDropdown = new SelectElement(ChooseLanguageLevelDropdown);
 
-            ExcelLib.PopulateInCollection(ExcelPath, "Languages");
-            //Read language from Excel
-            string? specialCharacterLanguage = ExcelLib.ReadData(2, "Special Characters");
-            WaitUntilElementIsPresent(languageObjectsObj.AddNewButton);
-            languageObjectsObj.AddNewButton?.Click();
-            languageObjectsObj.LanguageNameTextbox?.SendKeys(specialCharacterLanguage);
-            languageObjectsObj.ChooseLanguageLevelDropdown?.Click();
-            languageObjectsObj.LanguageLevelOptionFluent?.Click();
-            languageObjectsObj.AddButton?.Click();
-            languageObjectsObj.ValidationErrorMessage = GetPopUpMessage();
+            selectLanguageLevelDropdown.SelectByValue(languageLevel);
+            AddButton?.Click();
+            ValidationErrorMessage = GetPopUpMessage();
+            ClosePopUp();
+        }
+        public void AddLanguageWithLongTextInput(string language, string languageLevel)
+        {
+
+            WaitUntilElementIsPresent(AddNewButton);
+            AddNewButton?.Click();
+            LanguageNameTextbox?.SendKeys(language);
+            ChooseLanguageLevelDropdown?.Click();
+            if (ChooseLanguageLevelDropdown == null)
+            {
+                throw new Exception("dropdownLanguage is null. Ensure it is initialized before use.");
+            }
+            var selectLanguageLevelDropdown = new SelectElement(ChooseLanguageLevelDropdown);
+
+            selectLanguageLevelDropdown.SelectByValue(languageLevel);
+            AddButton?.Click();
+            ValidationErrorMessage = GetPopUpMessage();
             ClosePopUp();
 
         }
-        public void AddLanguageWithLongTextInput()
+        public void AddLanguageWithSpacesInput(string language, string languageLevel)
         {
 
-            ExcelLib.PopulateInCollection(ExcelPath, "Languages");
-            // Read language from Excel
-            string? LongTextLanguage = ExcelLib.ReadData(2, "LongText");
-            WaitUntilElementIsPresent(languageObjectsObj.AddNewButton);
-            languageObjectsObj.AddNewButton?.Click();
-            languageObjectsObj.LanguageNameTextbox?.SendKeys(LongTextLanguage);
-            languageObjectsObj.ChooseLanguageLevelDropdown?.Click();
-            languageObjectsObj.LanguageLevelOptionFluent?.Click();
-            languageObjectsObj.AddButton?.Click();
-            languageObjectsObj.ValidationErrorMessage = GetPopUpMessage();
-            ClosePopUp();
+            WaitUntilElementIsPresent(AddNewButton);
+            AddNewButton?.Click();
+            LanguageNameTextbox?.SendKeys(language);
+            ChooseLanguageLevelDropdown?.Click();
+            ChooseLanguageLevelDropdown?.Click();
+            if (ChooseLanguageLevelDropdown == null)
+            {
+                throw new Exception("dropdownLanguage is null. Ensure it is initialized before use.");
+            }
+            var selectLanguageLevelDropdown = new SelectElement(ChooseLanguageLevelDropdown);
 
-        }
-        public void AddLanguageWithSpacesInput()
-        {
-            string? SpacesTextInput = "          ";
-            WaitUntilElementIsPresent(languageObjectsObj.AddNewButton);
-            languageObjectsObj.AddNewButton?.Click();
-
-            languageObjectsObj.LanguageNameTextbox?.SendKeys(SpacesTextInput);
-            languageObjectsObj.ChooseLanguageLevelDropdown?.Click();
-            languageObjectsObj.LanguageLevelOptionConversational?.Click();
-            languageObjectsObj.AddButton?.Click();
-            languageObjectsObj.ValidationErrorMessage = GetPopUpMessage();
+            selectLanguageLevelDropdown.SelectByValue(languageLevel);
+            AddButton?.Click();
+            ValidationErrorMessage = GetPopUpMessage();
             ClosePopUp();
         }
-        public void AddLanguageWithMaliciousInput()
+        public void chooseLanguageLevel(string languageLevel)
         {
-            string? MaliciousText = "<img src=x onerror=alert(1)>";
-            WaitUntilElementIsPresent(languageObjectsObj.AddNewButton);
-            languageObjectsObj.AddNewButton?.Click();
-            WaitUntilElementIsPresent(languageObjectsObj.LanguageNameTextbox);
-            languageObjectsObj.LanguageNameTextbox?.SendKeys(MaliciousText);
-            languageObjectsObj.ChooseLanguageLevelDropdown?.Click();
-            languageObjectsObj.LanguageLevelOptionBasic?.Click();
-            languageObjectsObj.AddButton?.Click();
+            //Choose Lanuage Level
+            ChooseLanguageLevelDropdown?.Click();
+            if (ChooseLanguageLevelDropdown == null)
+            {
+                throw new Exception("dropdownLanguage is null. Ensure it is initialized before use.");
+            }
+            var selectLanguageLevelDropdown = new SelectElement(ChooseLanguageLevelDropdown);
+
+            selectLanguageLevelDropdown.SelectByValue(languageLevel);
+        }
+        public void AddLanguageWithMaliciousInput(string language, string languageLevel)
+        {
+
+            WaitUntilElementIsPresent(AddNewButton);
+            AddNewButton?.Click();
+            WaitUntilElementIsPresent(LanguageNameTextbox);
+            LanguageNameTextbox?.SendKeys(language);
+            ChooseLanguageLevelDropdown?.Click();
+            chooseLanguageLevel(languageLevel);
+            AddButton?.Click();
             AcceptAlert();
-            languageObjectsObj.ValidationErrorMessage = GetPopUpMessage();
+            ValidationErrorMessage = GetPopUpMessage();
 
             ClosePopUp();
-            wait(10);
-            DeleteLanguage();
+
         }
         public void AcceptAlert()
         {
@@ -219,8 +335,8 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
                 }
 
                 // Wait for the pop-up 
-                WaitUntilElementIsPresent(languageObjectsObj.PopUpBox);
-                string? message = languageObjectsObj?.PopUpBox?.Text?.Trim();
+                WaitUntilElementIsPresent(PopUpBox);
+                string? message = PopUpBox?.Text?.Trim();
                 TestContext.WriteLine($"Captured pop up message: {message}");
                 if (message == null)
                 {
@@ -238,53 +354,49 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
 
         public void AddLanguageWithEmptyFields()
         {
-            WaitUntilElementIsPresent(languageObjectsObj.AddNewButton);
-            languageObjectsObj.AddNewButton?.Click();
-            languageObjectsObj.AddButton?.Click();
-            languageObjectsObj.ValidationErrorMessage = GetPopUpMessage();
+            WaitUntilElementIsPresent(AddNewButton);
+            AddNewButton?.Click();
+            AddButton?.Click();
+            ValidationErrorMessage = GetPopUpMessage();
             ClosePopUp();
-            languageObjectsObj.AddCancelButton?.Click();
+            AddCancelButton?.Click();
         }
 
-        public void AddOnlyLanguagelevel()
+        public void AddOnlyLanguagelevel(string languageLevel)
         {
-            WaitUntilElementIsPresent(languageObjectsObj.AddNewButton);
-            languageObjectsObj.AddNewButton?.Click();
-            languageObjectsObj.ChooseLanguageLevelDropdown?.Click();
-            WaitUntilElementIsPresent(languageObjectsObj.LanguageLevelOptionNative);
-            languageObjectsObj.LanguageLevelOptionNative?.Click();
-            languageObjectsObj.AddButton?.Click();
-            languageObjectsObj.ValidationErrorMessage = GetPopUpMessage();
+            WaitUntilElementIsPresent(AddNewButton);
+            AddNewButton?.Click();
+            ChooseLanguageLevelDropdown?.Click();
+            chooseLanguageLevel(languageLevel);
+            AddButton?.Click();
+            ValidationErrorMessage = GetPopUpMessage();
             ClosePopUp();
-            languageObjectsObj.AddCancelButton?.Click();
+            AddCancelButton?.Click();
         }
 
-        public void AddOnlyLangaugeName()
+        public void AddOnlyLangaugeName(string language)
         {
 
-            string language = "Spanish";
+
             // Add new language
-            WaitUntilElementIsPresent(languageObjectsObj.AddNewButton);
-            languageObjectsObj.AddNewButton?.Click();
-            languageObjectsObj.LanguageNameTextbox?.SendKeys(language);
-            languageObjectsObj.AddButton?.Click();
-            languageObjectsObj.ValidationErrorMessage = GetPopUpMessage();
-            languageObjectsObj.AddCancelButton?.Click();
+            WaitUntilElementIsPresent(AddNewButton);
+            AddNewButton?.Click();
+            LanguageNameTextbox?.SendKeys(language);
+            AddButton?.Click();
+            ValidationErrorMessage = GetPopUpMessage();
+            AddCancelButton?.Click();
             ClosePopUp();
         }
-        public void AddDuplicateLanguage()
+        public void AddDuplicateLanguage(string language, string languageLevel)
         {
 
-            List<string> langauges = GetLanguagesFromTable();  // Get the list of skills
-            string randomLanguage = GetRandomLanguages(langauges);
-            WaitUntilElementIsPresent(languageObjectsObj.AddNewButton);
-            languageObjectsObj.AddNewButton?.Click();
-            languageObjectsObj.LanguageNameTextbox?.SendKeys(randomLanguage);
-            languageObjectsObj.ChooseLanguageLevelDropdown?.Click();
-            WaitUntilElementIsPresent(languageObjectsObj.LanguageLevelOptionConversational);
-            languageObjectsObj.LanguageLevelOptionConversational?.Click();
-            languageObjectsObj.AddButton?.Click();
-            languageObjectsObj.ValidationErrorMessage = GetPopUpMessage();
+
+            WaitUntilElementIsPresent(AddNewButton);
+            AddNewButton?.Click();
+            LanguageNameTextbox?.SendKeys(language);
+            chooseLanguageLevel(languageLevel);
+            AddButton?.Click();
+            ValidationErrorMessage = GetPopUpMessage();
             ClosePopUp();
             ClickCancelButton();
             wait(10);
@@ -293,33 +405,22 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
         {
             try
             {
-                languageObjectsObj.AddCancelButton?.Click();
+                AddCancelButton?.Click();
             }
             catch (NoSuchElementException)
             {
                 TestContext.WriteLine("Cancel button not found. Skipping click action.");
             }
 
-            wait(20);
         }
 
-        public void CheckLanguageAvailability()
+        public bool CheckLanguageDataAvailability()
         {
             if (driver == null)
                 throw new InvalidOperationException("Driver is not initialized.");
 
-            // Fetch language list once
-            List<string> languageList = GetLanguagesFromTable();
-
-            // Add new language only if the list is empty
-            if (!languageList.Any())
-            {
-                AddNewLanguageIfNotAvailable("Tamil");
-                languageList = GetLanguagesFromTable(); 
-            }
-
-            // Print languages
-            TestContext.WriteLine(string.Join(", ", languageList));
+            // Fetch language list and return its availability status
+            return GetLanguagesFromTable().Count > 0;
         }
 
         private List<string> GetLanguagesFromTable()
@@ -331,28 +432,24 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
 
             try
             {
-                // Fetch all rows at once
-                var rows = driver.FindElements(By.XPath("//table//tr"));
+                // Fetch all first <td> elements at once
+                var languageElements = driver.FindElements(By.XPath("//table//tr/td[1]"));
 
-                foreach (var row in rows)
+                foreach (var element in languageElements)
                 {
                     try
                     {
-                        // Get the first <td> in each row 
-                        var columns = row.FindElements(By.TagName("td"));
-                        if (columns.Count > 0)
+                        string language = element.Text.Trim();
+                        if (!string.IsNullOrEmpty(language) && !languageList.Contains(language))
                         {
-                            string language = columns[0].Text.Trim();
-                            if (!string.IsNullOrEmpty(language) && !languageList.Contains(language))
-                                languageList.Add(language);
+                            languageList.Add(language);
                         }
                     }
                     catch (StaleElementReferenceException)
                     {
-                        TestContext.WriteLine("Skipping stale row...");
+                        TestContext.WriteLine("Skipping stale element...");
                     }
                 }
-
             }
             catch (NoSuchElementException)
             {
@@ -362,13 +459,8 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             return languageList;
         }
 
-        private string GetRandomLanguages(List<string> languageList)
-        {
-            if (languageList == null || languageList.Count == 0)
-                throw new InvalidOperationException("The skill list is empty.");
 
-            return languageList[new Random().Next(languageList.Count)];
-        }
+
         public void ClickEditButtonOfLastRow()
         {
             var rows = driver?.FindElements(By.XPath("//table//tr"));
@@ -394,78 +486,70 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             languageList.ForEach(lang => TestContext.WriteLine(lang));
         }
 
-        public void AddNewLanguageIfNotAvailable(string language)
+        public void AddNewLanguageIfNotAvailable(string language, string languageLevel)
         {
             TestContext.WriteLine($"No languages found. Adding '{language}'.");
-            WaitUntilElementIsPresent(languageObjectsObj?.AddNewButton);
-            languageObjectsObj?.AddNewButton?.Click();
-            languageObjectsObj?.LanguageNameTextbox?.SendKeys(language);
-            languageObjectsObj?.ChooseLanguageLevelDropdown?.Click();
-            languageObjectsObj?.LanguageLevelOptionFluent?.Click();
-            languageObjectsObj?.AddButton?.Click();
+            WaitUntilElementIsPresent(AddNewButton);
+            AddNewButton?.Click();
+            LanguageNameTextbox?.SendKeys(language);
+
+            chooseLanguageLevel(languageLevel);
+            AddButton?.Click();
             ClosePopUp();
         }
 
 
-        public void UpdateValidLanguage()
+        public void UpdateValidLanguage(string languageUpdate, string updateLanguageLevel)
         {
             try
             {
-                languageObjectsObj.UpdateLanguageIcon?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Clear();
-                wait(10);
+                UpdateLanguageIcon?.Click();
+                UpdateLanguageTextbox?.Click();
+                UpdateLanguageTextbox?.Clear();
+                wait(5);
 
-                languageObjectsObj.UpdateLanguageInput = "German";
-                if (string.IsNullOrEmpty(languageObjectsObj.UpdateLanguageInput))
-                    throw new Exception("The 'Edit Language' value from Excel is null or empty.");
 
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(languageObjectsObj.UpdateLanguageInput);
-                languageObjectsObj.UpdateLevelDropdown?.Click();
-                languageObjectsObj.LanguageLevelOptionConversational?.Click();
-                languageObjectsObj.UpdateButton?.Click();
-                wait(10);
+                UpdateLanguageTextbox?.SendKeys(languageUpdate);
+                UpdateLevelDropdown?.Click();
+                string languageLevel = updateLanguageLevel;
+                //updateLanguageLevel = languageLevel;
+                chooseLanguageLevel(languageLevel);
+                UpdateButton?.Click();
+                wait(5);
 
                 // Fetch the success message
-                languageObjectsObj.UpdateLanguageSuccessMessage = GetPopUpMessage();
+                UpdateLanguageSuccessMessage = GetPopUpMessage();
                 ClosePopUp();
-                if (string.IsNullOrEmpty(languageObjectsObj.UpdateLanguageSuccessMessage))
+                if (string.IsNullOrEmpty(UpdateLanguageSuccessMessage))
                     throw new Exception("Update failed. No success message received.");
 
                 // Log the success message
-                TestContext.WriteLine($"Captured pop up message: {languageObjectsObj.UpdateLanguageSuccessMessage}");
+                TestContext.WriteLine($"Captured pop up message: {UpdateLanguageSuccessMessage}");
             }
             catch (Exception ex)
             {
                 TestContext.WriteLine($"Error in EditLanguage: {ex.Message}");
             }
 
-            wait(20);
-
         }
 
-        public void UpdateLanguageWithCharactersInput()
+        public void UpdateLanguageWithCharactersInput(string languageUpdate, string updateLanguageLevel)
         {
             try
             {
-                languageObjectsObj.UpdateLanguageIcon?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Clear();
-                wait(10);
+                UpdateLanguageIcon?.Click();
+                UpdateLanguageTextbox?.Click();
+                UpdateLanguageTextbox?.Clear();
 
-                ExcelLib.PopulateInCollection(ExcelPath, "Languages");
-                string? editLanguageCharacter = ExcelLib.ReadData(3, "Special Characters");
+                UpdateLanguageTextbox?.SendKeys(languageUpdate);
+                string languageLevel = updateLanguageLevel;
+                chooseLanguageLevel(languageLevel);
+                UpdateButton?.Click();
+                WaitUntilElementIsPresent(PopUpBox);
 
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(editLanguageCharacter);
-                languageObjectsObj.UpdateLevelDropdown?.Click();
-                languageObjectsObj.LanguageLevelOptionConversational?.Click();
-
-                languageObjectsObj.UpdateButton?.Click();
-                WaitUntilElementIsPresent(languageObjectsObj.PopUpBox);
-
-                languageObjectsObj.UpdateLanguageSuccessMessage = GetPopUpMessage();
+                UpdateLanguageErrorMessage = GetPopUpMessage();
                 ClosePopUp();
-                if (string.IsNullOrEmpty(languageObjectsObj.UpdateLanguageSuccessMessage))
+                if (string.IsNullOrEmpty(UpdateLanguageErrorMessage))
                 {
                     throw new Exception("Update failed. No success message received.");
                 }
@@ -474,32 +558,30 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             {
                 Console.WriteLine($"Error in EditLanguage: {ex.Message}");
             }
-            wait(20);
+            wait(5);
 
         }
 
-        public void UpdateLanguageWithLongInput()
+        public void UpdateLanguageWithLongInput(string languageUpdate, string languageLevelUpdate)
         {
             try
             {
-                languageObjectsObj.UpdateLanguageIcon?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Clear();
-                wait(10);
+                UpdateLanguageIcon?.Click();
+                UpdateLanguageTextbox?.Click();
+                UpdateLanguageTextbox?.Clear();
+                wait(3);
 
-                ExcelLib.PopulateInCollection(ExcelPath, "Languages");
-                string? editLanguageLongText = ExcelLib.ReadData(2, "LongText");
 
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(editLanguageLongText);
-                languageObjectsObj.UpdateLevelDropdown?.Click();
-                languageObjectsObj.LanguageLevelOptionConversational?.Click();
+                UpdateLanguageTextbox?.SendKeys(languageUpdate);
+                UpdateLevelDropdown?.Click();
+                string languageLevel = languageLevelUpdate;
+                chooseLanguageLevel(languageLevel);
 
-                languageObjectsObj.UpdateButton?.Click();
-                wait(15);
-                WaitUntilElementIsPresent(languageObjectsObj.PopUpBox);
-                languageObjectsObj.UpdateLanguageSuccessMessage = GetPopUpMessage();
+                UpdateButton?.Click();
+                WaitUntilElementIsPresent(PopUpBox);
+                UpdateLanguageErrorMessage = GetPopUpMessage();
                 ClosePopUp();
-                if (string.IsNullOrEmpty(languageObjectsObj.UpdateLanguageSuccessMessage))
+                if (string.IsNullOrEmpty(UpdateLanguageErrorMessage))
                 {
                     throw new Exception("Update failed. No success message received.");
                 }
@@ -508,61 +590,60 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             {
                 Console.WriteLine($"Error in EditLanguage: {ex.Message}");
             }
-            wait(20);
 
         }
 
-        public void UpdateLanguageWithSpacesInput()
+        public void UpdateLanguageWithSpacesInput(string languageUpdate, string languageLevelUpdate)
         {
             try
             {
 
-                languageObjectsObj.UpdateLanguageIcon?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Clear();
-                wait(10);
+                UpdateLanguageIcon?.Click();
+                UpdateLanguageTextbox?.Click();
+                string? currentValue = UpdateLanguageTextbox?.GetDomProperty("value");
+                UpdateLanguageTextbox?.SendKeys(Keys.Control + "a");
+                UpdateLanguageTextbox?.SendKeys(Keys.Delete);
 
-                string spacesText = "       ";
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(spacesText);
-                languageObjectsObj.UpdateLevelDropdown?.Click();
-                languageObjectsObj.LanguageLevelOptionFluent?.Click();
-                wait(5);
-                languageObjectsObj.UpdateButton?.Click();
+                UpdateLanguageTextbox?.SendKeys(languageUpdate);
+                UpdateLevelDropdown?.Click();
+                string languageLevel = languageLevelUpdate;
+                chooseLanguageLevel(languageLevel);
 
+                UpdateButton?.Click();
 
+                UpdateLanguageErrorMessage = GetPopUpMessage();
 
-                languageObjectsObj.UpdateValidationErrorMessage = GetPopUpMessage();
-
-                if (string.IsNullOrEmpty(languageObjectsObj.UpdateValidationErrorMessage))
+                if (string.IsNullOrEmpty(UpdateLanguageErrorMessage))
                     throw new Exception("Update failed. No error message received.");
             }
             catch (Exception ex)
             {
                 TestContext.WriteLine($"Error: {ex.Message}");
             }
-            CancelUpdate();
             ClosePopUp();
+            CancelUpdate();
+
         }
 
-        public void UpdateLanguageWithMaliciousInput()
+        public void UpdateLanguageWithMaliciousInput(string languageUpdate, string languageLevelUpdate)
         {
             try
             {
-                languageObjectsObj.UpdateLanguageIcon?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Clear();
-                wait(10);
+                UpdateLanguageIcon?.Click();
+                UpdateLanguageTextbox?.Click();
+                UpdateLanguageTextbox?.Clear();
 
-                string maliciousText = "<script>alert('Hacked!');</script>";
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(maliciousText);
-                languageObjectsObj.UpdateLevelDropdown?.Click();
-                languageObjectsObj.LanguageLevelOptionFluent?.Click();
-                languageObjectsObj.UpdateButton?.Click();
-                wait(15);
 
-                languageObjectsObj.UpdateValidationErrorMessage = GetPopUpMessage();
 
-                if (string.IsNullOrEmpty(languageObjectsObj.UpdateValidationErrorMessage))
+                UpdateLanguageTextbox?.SendKeys(languageUpdate);
+                UpdateLevelDropdown?.Click();
+                string languageLevel = languageLevelUpdate;
+                chooseLanguageLevel(languageLevel);
+                UpdateButton?.Click();
+
+                UpdateLanguageErrorMessage = GetPopUpMessage();
+
+                if (string.IsNullOrEmpty(UpdateLanguageErrorMessage))
                     throw new Exception("Update failed. No error message received.");
             }
             catch (Exception ex)
@@ -579,25 +660,25 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             try
             {
                 // Click edit buttons
-                WaitUntilElementIsClickable(languageObjectsObj.UpdateLanguageIcon);
-                languageObjectsObj.UpdateLanguageIcon?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Clear();
+                WaitUntilElementIsClickable(UpdateLanguageIcon);
+                UpdateLanguageIcon?.Click();
+                UpdateLanguageTextbox?.Click();
+                UpdateLanguageTextbox?.Clear();
                 wait(5);
                 // Select the level
-                languageObjectsObj.UpdateLevelDropdown?.Click();
-                languageObjectsObj.ChooseLanguageLevelOption?.Click();
+                UpdateLevelDropdown?.Click();
+                ChooseLanguageLevelOption?.Click();
                 // Submit the update
-                languageObjectsObj.UpdateButton?.Click();
-                wait(10);
-                // Validate the update success message
-                languageObjectsObj.UpdateValidationErrorMessage = GetPopUpMessage();
+                UpdateButton?.Click();
 
-                if (string.IsNullOrEmpty(languageObjectsObj.UpdateValidationErrorMessage))
+                // Validate the update success message
+                UpdateLanguageErrorMessage = GetPopUpMessage();
+
+                if (string.IsNullOrEmpty(UpdateLanguageErrorMessage))
                 {
                     throw new Exception("Update failed. No success message received.");
                 }
-                wait(10);
+
             }
             catch (Exception ex)
             {
@@ -605,45 +686,45 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             }
             CancelUpdate();
             ClosePopUp();
-            wait(20);
+
         }
 
-        public void UpdateOnlyLangaugeName()
+        public void UpdateOnlyLanguageName(string languageUpdate, string languageLevelUpdate)
         {
             try
             {
                 ClickEditButtonOfLastRow();
-                WaitUntilElementIsClickable(languageObjectsObj.UpdateLanguageTextbox);
-                languageObjectsObj.UpdateLanguageTextbox?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.Clear();
-                languageObjectsObj.UpdateLanguageInput = "Portugese";
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(languageObjectsObj.UpdateLanguageInput);
-                languageObjectsObj.UpdateLevelDropdown?.Click();
-                languageObjectsObj.ChooseLanguageLevelOption?.Click();
-                languageObjectsObj.UpdateButton?.Click();
-                languageObjectsObj.UpdateValidationErrorMessage = GetPopUpMessage();
-                wait(5);
-                if (string.IsNullOrEmpty(languageObjectsObj.UpdateValidationErrorMessage))
+                WaitUntilElementIsClickable(UpdateLanguageTextbox);
+                UpdateLanguageTextbox?.Click();
+                UpdateLanguageTextbox?.Clear();
+
+                UpdateLanguageTextbox?.SendKeys(languageUpdate);
+                UpdateLevelDropdown?.Click();
+                chooseLanguageLevel(languageLevelUpdate);
+                UpdateButton?.Click();
+                UpdateLanguageErrorMessage = GetPopUpMessage();
+
+                if (string.IsNullOrEmpty(UpdateLanguageErrorMessage))
                     throw new Exception("Update failed. No success message received.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in EditLanguage: {ex.Message}");
             }
-            wait(5);
+
             CancelUpdate();
             ClosePopUp();
-            wait(20);
+            wait(5);
         }
         public void CancelUpdate()
         {
             try
             {
                 // Ensure element exists before checking Displayed
-                if (languageObjectsObj.UpdateCancelButton != null && languageObjectsObj.UpdateCancelButton.Displayed)
+                if (UpdateCancelButton != null && UpdateCancelButton.Displayed)
                 {
-                    WaitUntilElementIsClickable(languageObjectsObj.UpdateCancelButton);
-                    languageObjectsObj.UpdateCancelButton.Click();
+                    WaitUntilElementIsClickable(UpdateCancelButton);
+                    UpdateCancelButton.Click();
                 }
             }
             catch (NoSuchElementException)
@@ -654,28 +735,29 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             {
                 TestContext.WriteLine($"An unexpected error occurred: {ex.Message}");
             }
-            wait(10);
+            wait(3);
         }
 
-        public void UpdateOnlyLanguageLevel()
+        public void UpdateOnlyLanguageLevel(string languageUpdate, string languageLevelUpdate)
         {
             try
             {
-                languageObjectsObj.UpdateLanguageIcon?.Click();
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(Keys.Control + "a");
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(Keys.Delete);
-                languageObjectsObj.LanguagesSectionHeader?.Click();
-                wait(10);
+                UpdateLanguageIcon?.Click();
+                UpdateLanguageTextbox?.SendKeys(Keys.Control + "a");
+                UpdateLanguageTextbox?.SendKeys(Keys.Delete);
+                LanguagesSectionHeader?.Click();
 
-                languageObjectsObj.UpdateLevelDropdown?.Click();
-                languageObjectsObj.LanguageLevelOptionFluent?.Click();
-                languageObjectsObj.UpdateButton?.Click();
-                wait(15);
 
-                languageObjectsObj.UpdateValidationErrorMessage = GetPopUpMessage();
-                wait(5);
+                UpdateLevelDropdown?.Click();
+                string languageLevel = languageLevelUpdate;
+                chooseLanguageLevel(languageLevel);
+                UpdateButton?.Click();
 
-                if (string.IsNullOrEmpty(languageObjectsObj.UpdateValidationErrorMessage))
+
+                UpdateLanguageErrorMessage = GetPopUpMessage();
+
+
+                if (string.IsNullOrEmpty(UpdateLanguageErrorMessage))
                     throw new Exception("Update failed. No success message received.");
 
             }
@@ -685,27 +767,24 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             }
             CancelUpdate();
             ClosePopUp();
-            wait(15);
+
         }
 
-        public void UpdateDuplicateLanguage()
+        public void UpdateDuplicateLanguage(string language, string languageLevel)
         {
             try
             {
-                languageObjectsObj.UpdateLanguageIcon?.Click();
-                string? currentValue = languageObjectsObj.UpdateLanguageTextbox?.GetDomProperty("value");
+                UpdateLanguageIcon?.Click();
+                string? currentValue = UpdateLanguageTextbox?.GetDomProperty("value");
 
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(Keys.Control + "a");
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(Keys.Delete);
-                wait(10);
-                languageObjectsObj.UpdateLanguageTextbox?.SendKeys(currentValue);
+                UpdateLanguageTextbox?.SendKeys(Keys.Control + "a");
+                UpdateLanguageTextbox?.SendKeys(Keys.Delete);
+                UpdateLanguageTextbox?.SendKeys(currentValue);
+                chooseLanguageLevel(languageLevel);
+                UpdateButton?.Click();
+                UpdateLanguageErrorMessage = GetPopUpMessage();
 
-                languageObjectsObj.UpdateButton?.Click();
-                wait(20);
-
-                languageObjectsObj.UpdateValidationErrorMessage = GetPopUpMessage();
-
-                if (string.IsNullOrEmpty(languageObjectsObj.UpdateValidationErrorMessage))
+                if (string.IsNullOrEmpty(UpdateLanguageErrorMessage))
                     throw new Exception("Update failed. No success message received.");
             }
             catch (Exception ex)
@@ -714,29 +793,60 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             }
             CancelUpdate();
             ClosePopUp();
-            wait(15);
+
         }
 
 
-        public void DeleteLanguage()
+        public void DeleteLanguage(string language)
         {
             List<string> languageList = GetUniqueLanguages();
-            if (languageObjectsObj.FirstColumnValue != null)
-                Console.WriteLine($"First column value: {languageObjectsObj.FirstColumnValue}");
-            Console.WriteLine("Languages: " + string.Join(", ", languageList));
+
+            if (FirstColumnValue != null)
+                TestContext.WriteLine($"First column value: {FirstColumnValue}");
+            TestContext.WriteLine("Languages: " + string.Join(", ", languageList));
 
             TryDeleteLanguage();
-            wait(15);
         }
+
+        private void TryDeleteLanguage()
+        {
+            try
+            {
+                // Check if the DeleteLanguageIcon is present before clicking
+                if (DeleteLanguageIcon == null || !DeleteLanguageIcon.Displayed)
+                {
+                    TestContext.WriteLine("No delete button found. Skipping deletion.");
+                    return;
+                }
+
+                DeleteLanguageIcon.Click();
+                wait(2);
+                AcceptAlert();
+                DeleteLanguageSuccessMessage = GetPopUpMessage();
+                ClosePopUp();
+
+                if (string.IsNullOrEmpty(DeleteLanguageSuccessMessage))
+                    throw new Exception("No success message.");
+            }
+            catch (NoSuchElementException)
+            {
+                TestContext.WriteLine("Delete button not found. Skipping deletion.");
+            }
+            catch (Exception ex)
+            {
+                TestContext.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
 
         public List<string> GetUniqueLanguages()
         {
             List<string> languageList = new List<string>();
-            languageObjectsObj.LanguageTableRows = driver?.FindElements(By.XPath("//table/tbody/tr"));
+            LanguageTableRows = driver?.FindElements(By.XPath("//table/tbody/tr"));
 
-            if (languageObjectsObj.LanguageTableRows != null && languageObjectsObj.LanguageTableRows.Count > 0)
+            if (LanguageTableRows != null && LanguageTableRows.Count > 0)
             {
-                foreach (var row in languageObjectsObj.LanguageTableRows)
+                foreach (var row in LanguageTableRows)
                 {
                     try
                     {
@@ -744,8 +854,8 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
                         if (!string.IsNullOrEmpty(language) && !languageList.Contains(language))
                             languageList.Add(language);
 
-                        if (languageObjectsObj.FirstColumnValue == null)
-                            languageObjectsObj.FirstColumnValue = language;
+                        if (FirstColumnValue == null)
+                            FirstColumnValue = language;
                     }
                     catch { continue; }
                 }
@@ -755,44 +865,5 @@ namespace Mars_Onboarding_Specflow.SpecFlowPages.Pages
             return languageList;
         }
 
-
-
-        private void TryDeleteLanguage()
-        {
-            try
-            {
-                languageObjectsObj.DeleteLanguageIcon?.Click();
-                AcceptAlert();
-                languageObjectsObj.DeleteLanguageSuccessMessage = GetPopUpMessage();
-                ClosePopUp();
-                if (string.IsNullOrEmpty(languageObjectsObj.DeleteLanguageSuccessMessage))
-                    throw new Exception("No success message.");
-
-                wait(15);
-            }
-            catch (Exception ex)
-            {
-                TestContext.WriteLine($"Error: {ex.Message}");
-            }
-            wait(15);
-        }
-        public void LogScenario()
-        {
-            try
-            {
-                CommonMethods.LogTestStep("Successfully signed in", Status.Pass);
-            }
-            catch (Exception ex)
-            {
-                CommonMethods.LogTestStep($"Sign-in failed: {ex.Message}", Status.Fail);
-                throw;
-            }
-            finally
-            {
-                // Finalize reports
-                CommonMethods.FinalizeExtentReports();
-                TestContext.WriteLine($"Reports Path: {ConstantHelpers.ReportsPath}");
-            }
-        }
     }
 }

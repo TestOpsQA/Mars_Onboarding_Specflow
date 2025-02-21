@@ -21,4 +21,10 @@
     <PackageReference Include="FluentAssertions" Version="6.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TestReports\Reports\" />
+    <Folder Include="TestReports\ReportXML\" />
+    <Folder Include="TestReports\Screenshots\" />
+  </ItemGroup>
+
 </Project>

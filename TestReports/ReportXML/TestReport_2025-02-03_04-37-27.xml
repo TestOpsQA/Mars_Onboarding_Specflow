@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TestReports>
-  <Test>
-    <TestName>Update a Language without entering a language name and without selecting language level</TestName>
-    <Status>Passed</Status>
-    <StartTime>2025-02-03_04-37-27</StartTime>
-    <EndTime>2025-02-03_04-42-27</EndTime>
-  </Test>
-</TestReports>

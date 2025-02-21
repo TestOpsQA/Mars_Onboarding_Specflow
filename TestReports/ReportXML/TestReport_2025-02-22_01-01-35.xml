@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestReports>
+  <Test>
+    <TestName>Add a skill with a combination of special characters inputs</TestName>
+    <Status>Passed</Status>
+    <StartTime>2025-02-22_01-01-35</StartTime>
+    <EndTime>2025-02-22_01-06-35</EndTime>
+  </Test>
+</TestReports>

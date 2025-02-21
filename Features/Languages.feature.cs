@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace On_Spec_New.Features
+namespace Mars_Onboarding_Specflow.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -26,7 +26,7 @@ namespace On_Spec_New.Features
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private string[] _featureTags = ((string[])(null));
         
 #line 1 "Languages.feature"
 #line hidden
@@ -36,7 +36,7 @@ namespace On_Spec_New.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Languages Feature in the Profile Module", "As a signed-in user of the Mars website,\r\nI am able to add, update and delete the" +
-                    " languages \r\nin the languages feature of Profile module", ProgrammingLanguage.CSharp, featureTags);
+                    " languages \r\nin the languages feature of Profile module", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -48,28 +48,28 @@ namespace On_Spec_New.Features
         }
         
         [NUnit.Framework.SetUpAttribute()]
-        public void TestInitialize()
+        public virtual void TestInitialize()
         {
         }
         
         [NUnit.Framework.TearDownAttribute()]
-        public void TestTearDown()
+        public virtual void TestTearDown()
         {
             testRunner.OnScenarioEnd();
         }
         
-        public void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+        public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
             testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<NUnit.Framework.TestContext>(NUnit.Framework.TestContext.CurrentContext);
         }
         
-        public void ScenarioStart()
+        public virtual void ScenarioStart()
         {
             testRunner.OnScenarioStart();
         }
         
-        public void ScenarioCleanup()
+        public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
@@ -78,27 +78,55 @@ namespace On_Spec_New.Features
         {
 #line 7
 #line hidden
-#line 8
-testRunner.Given("I am on Profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 9
-testRunner.And("I navigate to Languages section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I login to the website with valid email \'<email>\' and password \'<password>\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 10
+ testRunner.When("I am on Profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 11
+ testRunner.And("I navigate to Languages section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 12
+ testRunner.And("I clear langauges data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 13
+ testRunner.Then("Langauges data is cleared", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a Language with a valid language name and valid language level")]
         [NUnit.Framework.CategoryAttribute("Language")]
-        public void AddALanguageWithAValidLanguageNameAndValidLanguageLevel()
+        [NUnit.Framework.TestCaseAttribute("Tamil", "Fluent", "has been added to your languages", null)]
+        public virtual void AddALanguageWithAValidLanguageNameAndValidLanguageLevel(string language, string languageLevel, string successMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language with a valid language name and valid language level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 12
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("successMessage", successMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language with a valid language name and valid language level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 16
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -108,33 +136,50 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 14
-testRunner.When("I add a language in the Languages feature with a valid language name and valid la" +
-                        "nguage level,", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 17
+ testRunner.When(string.Format("I add a language in the Languages feature with a valid \'{0}\' name and valid level" +
+                            " \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 15
-testRunner.Then("the language is added successfully with the valid language name and language leve" +
-                        "l.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 18
+ testRunner.Then(string.Format("the language is added successfully with the valid language \'{0}\' name and level a" +
+                            "nd success message \'{1}\' is displayed.", language, successMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a Language with a combination of special characters and alphabetic text input" +
-            "s")]
+        [NUnit.Framework.DescriptionAttribute("Add a Language with a combination of special characters inputs")]
         [NUnit.Framework.CategoryAttribute("Language")]
-        public void AddALanguageWithACombinationOfSpecialCharactersAndAlphabeticTextInputs()
+        [NUnit.Framework.TestCaseAttribute("abc#45###", "Basic", "Please enter language and level", null)]
+        public virtual void AddALanguageWithACombinationOfSpecialCharactersInputs(string language, string languageLevel, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language with a combination of special characters and alphabetic text input" +
-                    "s", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 18
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language with a combination of special characters inputs", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -144,13 +189,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 20
-testRunner.When("I try to add a language with a combination of special characters and alphabetic t" +
-                        "ext as the language name,", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
+ testRunner.When(string.Format("I try to add a language with special characters as the \'{0}\' name and with a vali" +
+                            "d level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 21
-testRunner.Then("the language cannot be added with special characters and alphabetic text, and an " +
-                        "error message is displayed.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 26
+ testRunner.Then(string.Format("the language cannot be added with special characters \'{0}\', and an error \'<messag" +
+                            "e>\' is displayed.", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -159,16 +204,35 @@ testRunner.Then("the language cannot be added with special characters and alphab
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a Language with long text as the language name")]
         [NUnit.Framework.CategoryAttribute("Language")]
-        public void AddALanguageWithLongTextAsTheLanguageName()
+        [NUnit.Framework.TestCaseAttribute(@"In a world where technology evolves at an unprecedented pace, the ability to adapt and innovate has become more critical than ever. Every individual and organization must embrace a mindset of continuous learning and improvement to thrive in such an environment. Challenges will arise, but they present opportunities to grow stronger, wiser, and more resilient. Collaboration, creativity, and perseverance are the pillars of success, enabling us to overcome obstacles and build a brighter future together. Growth starts with action!", "Conversational", "Please enter language and level", null)]
+        public virtual void AddALanguageWithLongTextAsTheLanguageName(string language, string languageLevel, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language with long text as the language name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 25
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language with long text as the language name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -178,11 +242,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 26
-testRunner.When("I try to add a language with very long text as the language name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 33
+ testRunner.When(string.Format("I try to add a language with very long text as the \'{0}\' name and with a valid le" +
+                            "vel \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 27
-testRunner.Then("the language with long text cannot be added and an error message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 34
+ testRunner.Then(string.Format("the language \'{0}\' with long text cannot be added and an error \'{1}\' is displayed" +
+                            "", language, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -191,85 +257,34 @@ testRunner.Then("the language with long text cannot be added and an error messag
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a language with spaces as the language name")]
         [NUnit.Framework.CategoryAttribute("Language")]
-        public void AddALanguageWithSpacesAsTheLanguageName()
+        [NUnit.Framework.TestCaseAttribute("Fluent", "Please enter language and level", null)]
+        public virtual void AddALanguageWithSpacesAsTheLanguageName(string languageLevel, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a language with spaces as the language name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 30
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 31
-testRunner.When("I add a language with only spaces as the language name in the language textbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 32
-testRunner.Then("the language is not added with spaces as the language name and an error message i" +
-                        "s displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a language with malicious text as the language name")]
-        [NUnit.Framework.CategoryAttribute("Language")]
-        public void AddALanguageWithMaliciousTextAsTheLanguageName()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "Language"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a language with malicious text as the language name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 35
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 36
-testRunner.When("I add a language with malicious text as the language name in the language textbox" +
-                        "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 37
-testRunner.Then("the language is not added with the malicious text and an error message is display" +
-                        "ed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add a Language without entering a language name and without selecting a language " +
-            "level")]
-        [NUnit.Framework.CategoryAttribute("Language")]
-        public void AddALanguageWithoutEnteringALanguageNameAndWithoutSelectingALanguageLevel()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "Language"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language without entering a language name and without selecting a language " +
-                    "level", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a language with spaces as the language name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 40
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -280,12 +295,117 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 41
-testRunner.When("I add a language without entering a language name in the language textbox and wit" +
-                        "hout selecting a language level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I add a language with only spaces \"    \"  as the language name in the language te" +
+                            "xtbox and with valid level \'{0}\'", languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 42
-testRunner.Then("the language is not added with an empty language textbox and language level field" +
-                        "s and an error message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the language \'<language>\' is not added with spaces as the language name and an er" +
+                            "ror \'{0}\' is displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Add a language with malicious text as the language name")]
+        [NUnit.Framework.CategoryAttribute("Language")]
+        [NUnit.Framework.TestCaseAttribute("<img src=x onerror=alert(1)>", "Fluent", "Please enter language and level", null)]
+        public virtual void AddALanguageWithMaliciousTextAsTheLanguageName(string language, string languageLevel, string errorMessage, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a language with malicious text as the language name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 48
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 49
+ testRunner.When(string.Format("I add a language with malicious text \'{0}\' and valid level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 50
+ testRunner.Then(string.Format("the language \'{0}\' is not added with the malicious text and an error message \'{1}" +
+                            "\' is displayed", language, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Add a Language without entering a language name and without selecting a language " +
+            "level")]
+        [NUnit.Framework.CategoryAttribute("Language")]
+        [NUnit.Framework.TestCaseAttribute("Please enter language and level", null)]
+        public virtual void AddALanguageWithoutEnteringALanguageNameAndWithoutSelectingALanguageLevel(string errorMessage, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language without entering a language name and without selecting a language " +
+                    "level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 56
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 57
+ testRunner.When("I add a language without entering a language name \'<language>\' in the language te" +
+                        "xtbox and without selecting a language level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 58
+ testRunner.Then(string.Format("the language is not added with an empty language textbox and language level field" +
+                            "s and an error message \'{0}\' is displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -294,16 +414,34 @@ testRunner.Then("the language is not added with an empty language textbox and la
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a Language with a valid language name and without selecting a level")]
         [NUnit.Framework.CategoryAttribute("Language")]
-        public void AddALanguageWithAValidLanguageNameAndWithoutSelectingALevel()
+        [NUnit.Framework.TestCaseAttribute("Hindi", "Please enter language and level", null)]
+        public virtual void AddALanguageWithAValidLanguageNameAndWithoutSelectingALevel(string language, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language with a valid language name and without selecting a level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 45
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language with a valid language name and without selecting a level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 64
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -313,13 +451,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 46
-testRunner.When("I try to add a language with a valid language name but without selecting a langua" +
-                        "ge level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 65
+ testRunner.When(string.Format("I try to add a language with a valid language name \'{0}\' but without selecting a " +
+                            "language level \'<languageLevel>\'", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 47
-testRunner.Then("the language is not added without selecting the language level and an error is di" +
-                        "splayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 66
+ testRunner.Then(string.Format("the language is not added without selecting the language level and an error messa" +
+                            "ge \'{0}\'is displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -328,16 +466,34 @@ testRunner.Then("the language is not added without selecting the language level 
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a Language without entering a language name but with a valid language level")]
         [NUnit.Framework.CategoryAttribute("Language")]
-        public void AddALanguageWithoutEnteringALanguageNameButWithAValidLanguageLevel()
+        [NUnit.Framework.TestCaseAttribute("Native/Bilingual", "Please enter language and level", null)]
+        public virtual void AddALanguageWithoutEnteringALanguageNameButWithAValidLanguageLevel(string languageLevel, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language without entering a language name but with a valid language level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 50
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language without entering a language name but with a valid language level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 72
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -347,13 +503,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 51
-testRunner.When("I try to add a language with an empty language textbox but with a valid language " +
-                        "level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 73
+ testRunner.When(string.Format("I try to add a language \'<language>\' with an empty language textbox but with a va" +
+                            "lid language level \'{0}\'", languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 52
-testRunner.Then("the language is not added with an empty language textbox and an error message is " +
-                        "displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 74
+ testRunner.Then(string.Format("the language is not added with an empty language textbox and an error message \'{0" +
+                            "}\' is displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -362,16 +518,36 @@ testRunner.Then("the language is not added with an empty language textbox and an
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add a Language with an existing language name in the language list")]
         [NUnit.Framework.CategoryAttribute("Language")]
-        public void AddALanguageWithAnExistingLanguageNameInTheLanguageList()
+        [NUnit.Framework.TestCaseAttribute("Korean", "Basic", "Duplicated data", "This language is already exist in your language list.", null)]
+        public virtual void AddALanguageWithAnExistingLanguageNameInTheLanguageList(string language, string languageLevel, string errorMessageOne, string errorMessageTwo, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language with an existing language name in the language list", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 55
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("errorMessageOne", errorMessageOne);
+            argumentsOfScenario.Add("errorMessageTwo", errorMessageTwo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add a Language with an existing language name in the language list", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 80
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -381,11 +557,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 56
-testRunner.When("I try to add a language with an existing language name in the language list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 81
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 57
-testRunner.Then("the duplicate language cannot be added and an error is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 82
+ testRunner.And(string.Format("I try to add a language with a duplicate language name \'{0}\' and level \'{1}\' in t" +
+                            "he language list", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 83
+ testRunner.Then(string.Format("the duplicate language cannot be added and an error message \'{0}\' or \'{1}\' is dis" +
+                            "played", errorMessageOne, errorMessageTwo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -394,16 +575,37 @@ testRunner.Then("the duplicate language cannot be added and an error is displaye
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update a Language with a valid language name and valid language level")]
         [NUnit.Framework.CategoryAttribute("language")]
-        public void UpdateALanguageWithAValidLanguageNameAndValidLanguageLevel()
+        [NUnit.Framework.TestCaseAttribute("Russian", "Fluent", "Telugu", "Conversational", "has been updated to your languages", null)]
+        public virtual void UpdateALanguageWithAValidLanguageNameAndValidLanguageLevel(string language, string languageLevel, string languageUpdate, string languageLevelUpdate, string successMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language with a valid language name and valid language level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 60
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("languageUpdate", languageUpdate);
+            argumentsOfScenario.Add("languageLevelUpdate", languageLevelUpdate);
+            argumentsOfScenario.Add("successMessage", successMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language with a valid language name and valid language level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 90
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -413,274 +615,55 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 61
-testRunner.Given("that languages exist under the languages feature", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 62
-testRunner.When("I try to update any language in the language list with a valid language name and " +
-                        "valid language level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 63
-testRunner.Then("the language can be updated successfully with the valid language name and valid l" +
-                        "anguage level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a Language with a combination of special characters and alphabetic text in" +
-            "puts")]
-        [NUnit.Framework.CategoryAttribute("language")]
-        public void UpdateALanguageWithACombinationOfSpecialCharactersAndAlphabeticTextInputs()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "language"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language with a combination of special characters and alphabetic text in" +
-                    "puts", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 66
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 67
-testRunner.When("I try to update a language with a combination of special characters and alphabeti" +
-                        "c text inputs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 68
-testRunner.Then("the language cannot be updated with special characters and an error message is di" +
-                        "splayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a Language with long text as the language name")]
-        [NUnit.Framework.CategoryAttribute("Language")]
-        public void UpdateALanguageWithLongTextAsTheLanguageName()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "Language"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language with long text as the language name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 71
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 72
-testRunner.When("I try to update an existing language with very long text as the language name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 73
-testRunner.Then("the language cannot be updated with a long text input and an error message is dis" +
-                        "played", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a language with spaces as the language name")]
-        [NUnit.Framework.CategoryAttribute("language")]
-        public void UpdateALanguageWithSpacesAsTheLanguageName()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "language"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a language with spaces as the language name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 76
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 77
-testRunner.When("I try to update a language and leave only spaces in the language textbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 78
-testRunner.Then("the language is not updated with spaces and an error message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a language with malicious text as the language name")]
-        [NUnit.Framework.CategoryAttribute("language")]
-        public void UpdateALanguageWithMaliciousTextAsTheLanguageName()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "language"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a language with malicious text as the language name", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 81
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 82
-testRunner.When("I try to update a language and enter malicious text in the language textbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 83
-testRunner.Then("the language is not updated with malicious data and an error message is displayed" +
-                        "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a Language without entering a language name and without selecting language" +
-            " level")]
-        [NUnit.Framework.CategoryAttribute("Language")]
-        public void UpdateALanguageWithoutEnteringALanguageNameAndWithoutSelectingLanguageLevel()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "Language"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language without entering a language name and without selecting language" +
-                    " level", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 86
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 87
-testRunner.When("I try to update a language without entering a language name and without selecting" +
-                        " language level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 88
-testRunner.Then("the language is not updated without entering a language name and without selectin" +
-                        "g language level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a Language with valid language name and without selecting language level")]
-        [NUnit.Framework.CategoryAttribute("Language")]
-        public void UpdateALanguageWithValidLanguageNameAndWithoutSelectingLanguageLevel()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "Language"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language with valid language name and without selecting language level", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 91
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 92
-testRunner.When("I try to update a language with valid language name and without selecting languag" +
-                        "e level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And(string.Format("I try to update any language in the language list with a valid language name \'{0}" +
+                            "\' and valid language level \'{1}\'", languageUpdate, languageLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 93
-testRunner.Then("the language is not updated without selecting language level and an error is disp" +
-                        "layed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the language can be updated successfully with the valid language name \'{0}\' and v" +
+                            "alid language level and success message \'{1}\' is displayed", languageUpdate, successMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a Language without entering a language name but selecting a language level" +
-            "")]
-        [NUnit.Framework.CategoryAttribute("Language")]
-        public void UpdateALanguageWithoutEnteringALanguageNameButSelectingALanguageLevel()
+        [NUnit.Framework.DescriptionAttribute("Update a Language with special characters inputs")]
+        [NUnit.Framework.CategoryAttribute("language")]
+        [NUnit.Framework.TestCaseAttribute("Russian", "Fluent", "##%HNVrg6", "Basic", "Please enter language and level", null)]
+        public virtual void UpdateALanguageWithSpecialCharactersInputs(string language, string languageLevel, string languageUpdate, string languageLevelUpdate, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "Language"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language without entering a language name but selecting a language level" +
-                    "", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 96
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            string[] @__tags = new string[] {
+                    "language"};
+            if ((exampleTags != null))
             {
-                testRunner.SkipScenario();
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            else
-            {
-                this.ScenarioStart();
-#line 7
-this.FeatureBackground();
-#line hidden
-#line 97
-testRunner.When("I try to update a language without entering a language name but selecting a langu" +
-                        "age level", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 98
-testRunner.Then("the language is not updated with an empty language textbox and an error message i" +
-                        "s displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update a Language with an existing language name in the language list")]
-        [NUnit.Framework.CategoryAttribute("Language")]
-        public void UpdateALanguageWithAnExistingLanguageNameInTheLanguageList()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "Language"};
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language with an existing language name in the language list", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("languageUpdate", languageUpdate);
+            argumentsOfScenario.Add("languageLevelUpdate", languageLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language with special characters inputs", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 101
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -691,28 +674,54 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 102
-testRunner.When("I try to update a language with an existing language name in the language list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 103
-testRunner.Then("the duplicate language cannot be updated and an error is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When(string.Format("I try to update a language with special characters inputs \'{0}\' and with valid le" +
+                            "vel \'{1}\'", languageUpdate, languageLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 104
+ testRunner.Then(string.Format("the language cannot be updated with special characters  \'{0}\' and an error messag" +
+                            "e \'{1}\' is displayed", language, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Delete a Language from the language list")]
+        [NUnit.Framework.DescriptionAttribute("Update a Language with long text as the language name")]
         [NUnit.Framework.CategoryAttribute("Language")]
-        public void DeleteALanguageFromTheLanguageList()
+        [NUnit.Framework.TestCaseAttribute("Russian", "Fluent", @"The golden sun dipped below the horizon, painting the sky with hues of amber and violet as a gentle breeze rustled through the towering trees. The distant waves crashed rhythmically against the shore, their soothing melody blending with the whispers of the wind, creating a serene harmony.", "Conversational", "Please enter language and level", null)]
+        public virtual void UpdateALanguageWithLongTextAsTheLanguageName(string language, string languageLevel, string languageUpdate, string updateLanguageLevel, string errorMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a Language from the language list", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 106
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("languageUpdate", languageUpdate);
+            argumentsOfScenario.Add("updateLanguageLevel", updateLanguageLevel);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language with long text as the language name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 112
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
             {
                 testRunner.SkipScenario();
             }
@@ -722,11 +731,422 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 107
-testRunner.When("I try to delete a language from the language list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 113
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 108
-testRunner.Then("the language from the list is deleted successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 114
+ testRunner.When(string.Format("I try to update an existing language with very long text \'{0}\' as the language na" +
+                            "me and with level \'{1}\'", languageUpdate, updateLanguageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 115
+ testRunner.Then(string.Format("the language cannot be updated with a long text input \'{0}\' and an error message " +
+                            "\'{1}\' is displayed", languageUpdate, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a language with spaces as the language name")]
+        [NUnit.Framework.CategoryAttribute("language")]
+        [NUnit.Framework.TestCaseAttribute("Russian", "Fluent", "", "Basic", "Please enter language and level", null)]
+        public virtual void UpdateALanguageWithSpacesAsTheLanguageName(string language, string languageLevel, string languageUpdate, string languageLevelUpdate, string errorMessage, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("languageUpdate", languageUpdate);
+            argumentsOfScenario.Add("languageLevelUpdate", languageLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a language with spaces as the language name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 121
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 123
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 124
+ testRunner.When(string.Format("I try to update a language with only spaces \"   \"  in the language textbox and wi" +
+                            "th \'{0}\' language level", languageLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 125
+ testRunner.Then(string.Format("the language is not updated with spaces \'{0}\' and an error message \'{1}\' is displ" +
+                            "ayed", languageUpdate, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a language with malicious text as the language name")]
+        [NUnit.Framework.CategoryAttribute("language")]
+        [NUnit.Framework.TestCaseAttribute("Russian", "Fluent", "background: url(https://evil.com/steal.png);", "Basic", "Please enter language and level", null)]
+        public virtual void UpdateALanguageWithMaliciousTextAsTheLanguageName(string language, string languageLevel, string languageUpdate, string languageLevelUpdate, string errorMessage, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("languageUpdate", languageUpdate);
+            argumentsOfScenario.Add("languageLevelUpdate", languageLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a language with malicious text as the language name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 132
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 133
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 134
+ testRunner.When(string.Format("I try to update a language and enter malicious text \'{0}\' in the language textbox" +
+                            " and with language level \'{1}\'", languageUpdate, languageLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 135
+ testRunner.Then(string.Format("the language is not updated with malicious data \'{0}\' and an error message \'{1}\' " +
+                            "is displayed", languageUpdate, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a Language without entering a language name and without selecting language" +
+            " level")]
+        [NUnit.Framework.CategoryAttribute("Language")]
+        [NUnit.Framework.TestCaseAttribute("Russian", "Fluent", "", "", "Please enter language and level", null)]
+        public virtual void UpdateALanguageWithoutEnteringALanguageNameAndWithoutSelectingLanguageLevel(string language, string languageLevel, string languageUpdate, string languageLevelUpdate, string errorMessage, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("languageUpdate", languageUpdate);
+            argumentsOfScenario.Add("languageLevelUpdate", languageLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language without entering a language name and without selecting language" +
+                    " level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 141
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 142
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 143
+ testRunner.When(string.Format("I try to update a language without entering a language name \'{0}\' and without sel" +
+                            "ecting language level", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 144
+ testRunner.Then(string.Format("the language is not updated without entering a language name and without selectin" +
+                            "g language level and an error message \'{0}\' is displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a Language with valid language name and without selecting language level")]
+        [NUnit.Framework.CategoryAttribute("Language")]
+        [NUnit.Framework.TestCaseAttribute("Russian", "Fluent", "Spanish", "", "Please enter language and level", null)]
+        public virtual void UpdateALanguageWithValidLanguageNameAndWithoutSelectingLanguageLevel(string language, string languageLevel, string languageUpdate, string languageLevelUpdate, string errorMessage, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("languageUpdate", languageUpdate);
+            argumentsOfScenario.Add("languageLevelUpdate", languageLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language with valid language name and without selecting language level", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 150
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 151
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 152
+ testRunner.When(string.Format("I try to update a language with valid language name \'{0}\' and without selecting l" +
+                            "anguage level \'{1}\'", languageUpdate, languageLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 153
+ testRunner.Then(string.Format("the language \'{0}\' is not updated without selecting language level and an error \'" +
+                            "{1}\' is displayed", languageUpdate, errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a Language without entering a language name but selecting a language level" +
+            "")]
+        [NUnit.Framework.CategoryAttribute("Language")]
+        [NUnit.Framework.TestCaseAttribute("Russian", "Fluent", "", "Native/Bilingual", "Please enter language and level", null)]
+        public virtual void UpdateALanguageWithoutEnteringALanguageNameButSelectingALanguageLevel(string language, string languageLevel, string languageUpdate, string languageLevelUpdate, string errorMessage, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("languageUpdate", languageUpdate);
+            argumentsOfScenario.Add("languageLevelUpdate", languageLevelUpdate);
+            argumentsOfScenario.Add("errorMessage", errorMessage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language without entering a language name but selecting a language level" +
+                    "", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 159
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 160
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 161
+ testRunner.And(string.Format("I try to update a language without entering a language name \'{0}\' but selecting a" +
+                            " language level \'{1}\'", languageUpdate, languageLevelUpdate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 162
+ testRunner.Then(string.Format("the language is not updated with an empty language textbox and an error message \'" +
+                            "{0}\' is displayed", errorMessage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a Language with an existing language name in the language list")]
+        [NUnit.Framework.CategoryAttribute("Language")]
+        [NUnit.Framework.TestCaseAttribute("Korean", "Basic", "Duplicated data", "This language is already added to your language list.", null)]
+        public virtual void UpdateALanguageWithAnExistingLanguageNameInTheLanguageList(string language, string languageLevel, string errorMessageOne, string errorMessageTwo, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("errorMessageOne", errorMessageOne);
+            argumentsOfScenario.Add("errorMessageTwo", errorMessageTwo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a Language with an existing language name in the language list", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 168
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 169
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 170
+ testRunner.And(string.Format("I try to update a language with a duplicate language name \'{0}\' and level \'{1}\' i" +
+                            "n the language list", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 171
+ testRunner.Then(string.Format("the duplicate language cannot be updated and an error message \'{0}\' or \'{1}\' is d" +
+                            "isplayed", errorMessageOne, errorMessageTwo), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Delete a Language from the language list")]
+        [NUnit.Framework.CategoryAttribute("Language")]
+        [NUnit.Framework.TestCaseAttribute("English", "Fluent", "has been deleted from your languages", null)]
+        public virtual void DeleteALanguageFromTheLanguageList(string language, string languageLevel, string deleteSuccess, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "Language"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("languageLevel", languageLevel);
+            argumentsOfScenario.Add("deleteSuccess", deleteSuccess);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete a Language from the language list", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 178
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 179
+ testRunner.When(string.Format("I add a valid language \'{0}\' and level \'{1}\'", language, languageLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 180
+ testRunner.And(string.Format("I try to delete a language \'{0}\' from the language list", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 181
+ testRunner.Then(string.Format("the language \'{0}\' from the list is deleted successfully and a successful deletio" +
+                            "n message \'{1}\' is displayed", language, deleteSuccess), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
